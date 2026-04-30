@@ -1,0 +1,2601 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="theme-color" content="#1f2a3a">
+<title>Akiyoshi Family Roadtrip 2026 — さあ、冒険に出かけよう</title>
+
+<!-- OGP（LINE等で共有時のプレビュー） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="✦ Akiyoshi Family Roadtrip 2026">
+<meta property="og:description" content="2026.05.11 → 05.18 ／ 福岡〜富士〜伊勢〜瀬戸内 ／ 家族とトレーラーで">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- インラインSVG favicon（ゴールドの羅針盤風） -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%23f6f1e6' stroke='%23b8923f' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23b8923f'/%3E%3Cpath d='M50 12 L56 50 L50 88 L44 50 Z' fill='%23b8923f' opacity='0.85'/%3E%3Cpath d='M12 50 L50 56 L88 50 L50 44 Z' fill='%231f2a3a' opacity='0.7'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<style>
+  :root {
+    --ink: #1f2a3a;
+    --ink-soft: #4a5668;
+    --ink-fade: #6f7a8c;
+    --paper: #f6f1e6;
+    --paper-warm: #efe7d4;
+    --paper-deep: #e8dcc1;
+    --card: #ffffff;
+    --line: #d8cfba;
+    --line-soft: #e8dfca;
+    --gold: #b8923f;
+    --gold-soft: #d4b574;
+    --gold-deep: #8b6e2c;
+    --sunset: #d97243;
+    --sunset-deep: #b8553a;
+    --sky: #5b8aa8;
+    --sky-deep: #3d6885;
+    --forest: #6b7f5e;
+    --plum: #7a4965;
+    --coral: #c45c47;
+    --night: #1a2942;
+    --shadow: 0 4px 20px rgba(31, 42, 58, 0.08);
+    --shadow-strong: 0 14px 50px rgba(31, 42, 58, 0.18);
+    --shadow-photo: 0 8px 28px rgba(31, 42, 58, 0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.8;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* ========================================================
+     HERO  — Mt. Fuji at twilight, illustrated
+  ========================================================= */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px 100px;
+    overflow: hidden;
+    color: #fdf9ed;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 30%, rgba(20, 28, 48, 0.55) 100%),
+      linear-gradient(180deg, rgba(20, 28, 48, 0.15) 0%, transparent 30%, rgba(20, 28, 48, 0.4) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-issue {
+    position: absolute;
+    top: 36px;
+    left: 36px;
+    z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #fdf9ed;
+    opacity: 0.85;
+  }
+  .hero-issue .vol {
+    color: var(--gold-soft);
+    margin-right: 8px;
+  }
+  .hero-issue::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold-soft);
+    vertical-align: middle;
+    margin-right: 14px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 30px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: "❦";
+    color: var(--gold-soft);
+    margin: 0 16px;
+    font-style: normal;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+    font-size: clamp(2.8rem, 7vw, 5.4rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+  }
+  .hero-title .br-mobile { display: none; }
+  .hero-subtitle {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(0.95rem, 1.8vw, 1.18rem);
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(253, 249, 237, 0.92);
+    margin: 0 auto 50px;
+    max-width: 580px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .hero-dates-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    margin-bottom: 40px;
+    letter-spacing: 0.05em;
+    color: #fdf9ed;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .hero-dates-line .ornament {
+    color: var(--gold-soft);
+    font-size: 1.1em;
+  }
+  .hero-dates-line .arrow {
+    width: 60px;
+    height: 1px;
+    background: rgba(212, 181, 116, 0.7);
+    position: relative;
+  }
+  .hero-dates-line .arrow::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid var(--gold-soft);
+    border-right: 1px solid var(--gold-soft);
+    transform: rotate(45deg);
+  }
+  .countdown {
+    display: inline-block;
+    background: rgba(253, 249, 237, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 181, 116, 0.35);
+    border-radius: 4px;
+    padding: 16px 28px;
+  }
+  .countdown-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 0.32em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .countdown-blocks {
+    display: flex;
+    gap: 18px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .countdown-block {
+    text-align: center;
+    min-width: 56px;
+  }
+  .countdown-block .num {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--gold-soft);
+    letter-spacing: 0.02em;
+  }
+  .countdown-block .unit {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(253, 249, 237, 0.7);
+  }
+  .countdown-divider {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: rgba(212, 181, 116, 0.5);
+    line-height: 1;
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+  @media (max-width: 600px) {
+    .countdown { padding: 14px 18px; }
+    .countdown-blocks { gap: 12px; }
+    .countdown-block { min-width: 44px; }
+    .countdown-block .num { font-size: 1.9rem; }
+    .countdown-block .unit { font-size: 0.6rem; letter-spacing: 0.22em; }
+    .countdown-divider { font-size: 1.4rem; }
+  }
+
+  /* ========================================================
+     MUSIC PLAYER — 控えめに右下、エレガント
+  ========================================================= */
+  #music-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+  }
+  #music-fab-btn {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 11px 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    letter-spacing: 0.18em;
+    font-size: 0.82rem;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(31, 42, 58, 0.25);
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #music-fab-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(31, 42, 58, 0.32);
+    background: #fdf9ed;
+  }
+  #music-fab-btn.playing {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--gold-soft);
+  }
+  #music-tray {
+    display: none;
+    margin-top: 10px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 12px;
+    box-shadow: 0 14px 40px rgba(31, 42, 58, 0.25);
+    width: 280px;
+  }
+  #music-tray.open { display: block; }
+  #music-tray iframe {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+  .music-tracks {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .music-tracks button {
+    flex: 1;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .music-tracks button.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  @media (max-width: 600px) {
+    #music-fab { bottom: 16px; right: 16px; }
+    #music-fab-btn { padding: 10px 18px; font-size: 0.76rem; }
+    #music-tray { width: 260px; }
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.4em;
+    color: rgba(253, 249, 237, 0.65);
+    text-transform: uppercase;
+  }
+  .scroll-cue::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 32px;
+    background: rgba(253, 249, 237, 0.4);
+    margin: 12px auto 0;
+    animation: drop 2.4s ease-in-out infinite;
+  }
+  @keyframes drop {
+    0%, 100% { opacity: 0.2; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ========================================================
+     NAV
+  ========================================================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(246, 241, 230, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-inner a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Noto Serif JP', serif;
+  }
+  .nav-inner a:hover {
+    color: var(--sunset);
+    border-bottom-color: var(--sunset);
+  }
+
+  /* ========================================================
+     SECTION  — magazine layout
+  ========================================================= */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 24px 60px;
+    position: relative;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 5rem;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: -30px;
+    letter-spacing: 0.05em;
+  }
+  .section-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    text-align: center;
+    position: relative;
+  }
+  .section-title {
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+    text-align: center;
+    margin-bottom: 22px;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--sunset);
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 0 auto 22px;
+    max-width: 200px;
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .ornament-divider svg {
+    width: 22px;
+    height: 22px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-lead {
+    text-align: center;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto 56px;
+    font-size: 1rem;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    line-height: 2;
+  }
+  .section-lead em {
+    font-style: italic;
+    color: var(--sunset);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+  }
+
+  /* drop cap */
+  .drop-cap::first-letter {
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+    font-weight: 500;
+    font-size: 3.6em;
+    float: left;
+    line-height: 0.85;
+    margin: 8px 10px 0 0;
+    color: var(--sunset);
+  }
+
+  /* pull quote */
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+    line-height: 1.5;
+    color: var(--ink);
+    text-align: center;
+    max-width: 720px;
+    margin: 50px auto;
+    padding: 30px 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .pull-quote::before {
+    content: "❝";
+    display: block;
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .pull-quote .author {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-style: normal;
+    margin-top: 14px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ========================================================
+     OVERVIEW
+  ========================================================= */
+  .members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 22px;
+    margin-bottom: 70px;
+  }
+  .member {
+    background: var(--card);
+    border-radius: 4px;
+    padding: 26px 18px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-photo);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .member:hover {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+  .member::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 80px;
+    height: 16px;
+    background: rgba(212, 181, 116, 0.4);
+    border-radius: 2px;
+  }
+  .member-portrait {
+    width: 90px;
+    height: 90px;
+    margin: 4px auto 14px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .member-portrait svg {
+    width: 50px;
+    height: 50px;
+    color: var(--ink);
+  }
+  .member-name {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+  .member-name .en {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+  .member-role {
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .vehicle-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: linear-gradient(135deg, #1f2a3a 0%, #2c3e57 70%, #3d6885 100%);
+    border-radius: 6px;
+    padding: 50px 40px;
+    color: #fdf9ed;
+    box-shadow: var(--shadow-strong);
+    position: relative;
+    overflow: hidden;
+  }
+  .vehicle-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(212, 181, 116, 0.18), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(217, 114, 67, 0.12), transparent 50%);
+    pointer-events: none;
+  }
+  .vehicle-illust {
+    position: relative;
+    z-index: 1;
+  }
+  .vehicle-illust svg {
+    width: 100%;
+    height: auto;
+    max-width: 420px;
+  }
+  .vehicle-text {
+    position: relative;
+    z-index: 1;
+  }
+  .vehicle-text .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    letter-spacing: 0.28em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .vehicle-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    margin-bottom: 22px;
+    line-height: 1.3;
+  }
+  .vehicle-text h3 em {
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .vehicle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    font-size: 0.88rem;
+  }
+  .vehicle-grid div {
+    border-left: 1px solid rgba(212, 181, 116, 0.4);
+    padding-left: 14px;
+  }
+  .vehicle-grid div span {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--gold-soft);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ========================================================
+     SCHEDULE  — magazine timeline
+  ========================================================= */
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+    border-left: 1px solid var(--line);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 50px 32px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-icon {
+    position: absolute;
+    left: -52px;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .timeline-item.confirmed .timeline-icon {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+  .timeline-item.confirmed .timeline-icon svg { color: #fff; }
+  .timeline-icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--gold);
+  }
+  .timeline-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .timeline-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .timeline-body {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    line-height: 1.9;
+  }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .timeline-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--paper-warm);
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+  .timeline-tag.confirmed {
+    background: rgba(184, 146, 63, 0.18);
+    color: var(--gold-deep);
+    border: 1px solid rgba(184, 146, 63, 0.3);
+  }
+  .timeline-tag.tbd {
+    background: rgba(217, 114, 67, 0.14);
+    color: var(--sunset-deep);
+    border: 1px solid rgba(217, 114, 67, 0.25);
+  }
+
+  /* ========================================================
+     MAP
+  ========================================================= */
+  .compass-wrap {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .compass-wrap svg {
+    width: 60px;
+    height: 60px;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .map-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-photo);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .map-frame-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .map-frame-corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .map-frame-corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  .map-frame-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .map-frame-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+  #map {
+    height: 560px;
+    width: 100%;
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 20px 24px;
+    border-top: 1px solid var(--line);
+    background: var(--paper-warm);
+    font-size: 0.85rem;
+    font-family: 'Noto Serif JP', serif;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-pin {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .leaflet-popup-content {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 14px 18px;
+    line-height: 1.6;
+  }
+  .popup-cat {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .popup-name {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 6px 0;
+    color: var(--ink);
+  }
+  .popup-desc {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ========================================================
+     STOPS  — photo-card grid for candidate spots
+  ========================================================= */
+  .stops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+  }
+  .stop-card {
+    background: var(--card);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-photo);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .stop-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+  }
+  .stop-photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d4b574 0%, #b8923f 60%, #8b6e2c 100%);
+  }
+  .stop-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .stop-card:hover .stop-photo img {
+    transform: scale(1.06);
+  }
+  .stop-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(20,28,48,0.45) 100%);
+    pointer-events: none;
+  }
+  .stop-photo .stop-cat {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fdf9ed;
+    background: rgba(31, 42, 58, 0.78);
+    padding: 5px 12px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .stop-photo.no-photo {
+    background: linear-gradient(135deg, var(--paper-deep) 0%, var(--gold-soft) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stop-photo.no-photo::before {
+    content: "✦";
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.7);
+  }
+  .stop-body {
+    padding: 18px 22px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .stop-name {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .stop-name .en {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .stop-desc {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-top: 10px;
+    font-family: 'Noto Serif JP', serif;
+    flex: 1;
+  }
+  .stop-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .stop-meta span {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--paper-warm);
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+  .stop-meta span.day {
+    background: rgba(184, 146, 63, 0.18);
+    color: var(--gold-deep);
+    border: 1px solid rgba(184, 146, 63, 0.3);
+    font-weight: 500;
+  }
+
+  /* ========================================================
+     RESERVATIONS  — ticket stub style
+  ========================================================= */
+  .reservations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+  }
+  .res-card {
+    background: var(--card);
+    border-radius: 4px;
+    padding: 24px 22px 24px 26px;
+    box-shadow: var(--shadow-photo);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    position: relative;
+    border-left: 4px solid var(--gold);
+  }
+  .res-card::before, .res-card::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--paper);
+    border-radius: 50%;
+    left: -11px;
+  }
+  .res-card::before { top: 36px; }
+  .res-card::after { bottom: 36px; }
+  .res-card .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .res-card .label .num {
+    color: var(--ink);
+    font-style: normal;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.5em;
+    margin-right: 6px;
+  }
+  .res-card h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .res-card dl {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 5px 10px;
+    font-size: 0.78rem;
+  }
+  .res-card dt { color: var(--ink-fade); font-weight: 400; }
+  .res-card dd { color: var(--ink); }
+  .res-card dd.highlight {
+    color: var(--sunset);
+    font-weight: 600;
+    font-size: 1.05em;
+    font-family: 'Playfair Display', serif;
+  }
+  .res-card .barcode {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-fade);
+    text-align: right;
+  }
+
+  /* ========================================================
+     PACKING
+  ========================================================= */
+  .packing-illust {
+    display: flex;
+    justify-content: center;
+    margin: -10px auto 30px;
+  }
+  .packing-illust svg {
+    width: 220px;
+    height: auto;
+    color: var(--gold);
+    opacity: 0.85;
+  }
+  .pack-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 36px;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .pack-progress {
+    width: 100%;
+    max-width: 480px;
+    height: 8px;
+    background: var(--paper-warm);
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .pack-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--sunset));
+    width: 0%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(217, 114, 67, 0.4);
+  }
+  .pack-progress-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--gold);
+  }
+  .pack-reset {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .pack-reset:hover {
+    border-color: var(--sunset);
+    color: var(--sunset);
+  }
+
+  .pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 24px;
+  }
+  .pack-cat {
+    background: var(--card);
+    border-radius: 4px;
+    padding: 26px 26px 24px;
+    box-shadow: var(--shadow-photo);
+    position: relative;
+  }
+  .pack-cat h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pack-cat h3 .cat-icon {
+    width: 26px;
+    height: 26px;
+    color: var(--sunset);
+    flex-shrink: 0;
+  }
+  .pack-cat h3 .cat-icon svg { width: 100%; height: 100%; }
+  .pack-cat h3 .en {
+    margin-left: auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .pack-list { list-style: none; }
+  .pack-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 7px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+  }
+  .pack-list li input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--gold);
+    border-radius: 3px;
+    background: var(--card);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .pack-list li input[type="checkbox"]:checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .pack-list li input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .pack-list li label {
+    font-size: 0.93rem;
+    color: var(--ink);
+    line-height: 1.6;
+    cursor: pointer;
+    flex: 1;
+  }
+  .pack-list li.checked label {
+    text-decoration: line-through;
+    color: var(--ink-fade);
+    opacity: 0.55;
+  }
+  .pack-list li.checked label::after {
+    content: " ✓ 完了";
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--forest);
+    margin-left: 6px;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  /* ========================================================
+     TIPS & CONTACTS
+  ========================================================= */
+  .tips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .tip-card {
+    background: var(--card);
+    border-left: 3px solid var(--sunset);
+    border-radius: 4px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-photo);
+    position: relative;
+  }
+  .tip-card .tip-icon {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 24px;
+    height: 24px;
+    color: var(--sunset);
+    opacity: 0.7;
+  }
+  .tip-card h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin-bottom: 10px;
+    padding-right: 32px;
+  }
+  .tip-card p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  .contacts {
+    background: var(--card);
+    border-radius: 4px;
+    padding: 28px 30px;
+    font-size: 0.88rem;
+    box-shadow: var(--shadow-photo);
+  }
+  .contacts h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .contacts h3 svg {
+    width: 20px; height: 20px; color: var(--gold);
+  }
+  .contacts dl {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 10px 18px;
+  }
+  .contacts dt { color: var(--ink-fade); font-family: 'Noto Serif JP', serif; }
+  .contacts dd a { color: var(--sunset); text-decoration: none; }
+  .contacts dd a:hover { text-decoration: underline; }
+
+  /* ========================================================
+     FOOTER
+  ========================================================= */
+  footer {
+    text-align: center;
+    padding: 80px 24px 50px;
+    color: var(--ink-soft);
+    background: var(--paper-warm);
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+  }
+  .footer-ornament {
+    margin-bottom: 22px;
+  }
+  .footer-ornament svg {
+    width: 80px;
+    height: 30px;
+    color: var(--gold);
+  }
+  footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  footer p .light {
+    color: var(--gold);
+    font-size: 1.2em;
+    margin: 0 8px;
+  }
+  footer .signature {
+    margin-top: 16px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--gold-deep);
+    font-style: normal;
+    letter-spacing: 0.04em;
+  }
+
+  /* ========================================================
+     MOBILE
+  ========================================================= */
+  @media (max-width: 880px) {
+    .vehicle-section { grid-template-columns: 1fr; padding: 36px 26px; gap: 24px; }
+    .vehicle-illust { order: -1; }
+  }
+  @media (max-width: 768px) {
+    section { padding: 70px 18px 40px; }
+    .hero-title .br-mobile { display: block; }
+    .contacts dl { grid-template-columns: 1fr; gap: 4px; }
+    .contacts dt { margin-top: 10px; color: var(--ink-fade); font-size: 0.85em; }
+    #map { height: 440px; }
+    .res-card dl { grid-template-columns: 80px 1fr; }
+    .timeline { padding-left: 30px; }
+    .timeline-icon { width: 40px; height: 40px; left: -50px; }
+    .timeline-icon svg { width: 18px; height: 18px; }
+    .hero-issue { left: 20px; top: 22px; font-size: 0.78rem; letter-spacing: 0.25em; }
+    .vehicle-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<header class="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1f3d"/>
+          <stop offset="35%" stop-color="#2c3a5e"/>
+          <stop offset="60%" stop-color="#7a5d6e"/>
+          <stop offset="80%" stop-color="#d4886a"/>
+          <stop offset="100%" stop-color="#e9a878"/>
+        </linearGradient>
+        <linearGradient id="fujiGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a3855"/>
+          <stop offset="100%" stop-color="#4a5778"/>
+        </linearGradient>
+        <linearGradient id="midMtnGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1f2a44"/>
+          <stop offset="100%" stop-color="#2c3a5a"/>
+        </linearGradient>
+        <linearGradient id="snowGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5e8d3"/>
+          <stop offset="100%" stop-color="#d8c4a8"/>
+        </linearGradient>
+        <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="rgba(245,232,211,0.3)"/>
+          <stop offset="100%" stop-color="rgba(245,232,211,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Sky -->
+      <rect width="1440" height="900" fill="url(#skyGrad)"/>
+
+      <!-- Stars -->
+      <g fill="#fdf9ed">
+        <circle cx="80"   cy="80"  r="1.2" opacity="0.9"/>
+        <circle cx="180"  cy="50"  r="0.9" opacity="0.8"/>
+        <circle cx="280"  cy="120" r="1.6" opacity="1"/>
+        <circle cx="370"  cy="70"  r="1"   opacity="0.85"/>
+        <circle cx="460"  cy="40"  r="1.3" opacity="0.9"/>
+        <circle cx="560"  cy="110" r="1"   opacity="0.7"/>
+        <circle cx="650"  cy="60"  r="1.5" opacity="0.95"/>
+        <circle cx="740"  cy="30"  r="0.9" opacity="0.8"/>
+        <circle cx="850"  cy="90"  r="1.2" opacity="0.85"/>
+        <circle cx="940"  cy="50"  r="1.6" opacity="1"/>
+        <circle cx="1030" cy="100" r="1"   opacity="0.8"/>
+        <circle cx="1130" cy="60"  r="1.3" opacity="0.9"/>
+        <circle cx="1240" cy="120" r="0.9" opacity="0.75"/>
+        <circle cx="1340" cy="80"  r="1.4" opacity="0.95"/>
+        <circle cx="120"  cy="180" r="0.8" opacity="0.7"/>
+        <circle cx="320"  cy="200" r="1.1" opacity="0.85"/>
+        <circle cx="520"  cy="170" r="0.9" opacity="0.75"/>
+        <circle cx="780"  cy="200" r="1.2" opacity="0.8"/>
+        <circle cx="1080" cy="180" r="1"   opacity="0.85"/>
+        <circle cx="1290" cy="220" r="1.3" opacity="0.9"/>
+      </g>
+
+      <!-- Moon -->
+      <circle cx="1180" cy="170" r="100" fill="url(#moonGlow)"/>
+      <circle cx="1180" cy="170" r="42" fill="#f5e8d3" opacity="0.92"/>
+      <circle cx="1198" cy="162" r="42" fill="#1a1f3d" opacity="0.95"/>
+
+      <!-- Far mountains -->
+      <path d="M0,580 L90,520 L180,560 L290,490 L390,540 L490,500 L600,530 L700,480 L820,520 L930,490 L1050,530 L1170,500 L1290,540 L1440,510 L1440,900 L0,900 Z"
+            fill="#1d263e" opacity="0.85"/>
+
+      <!-- Mid mountains -->
+      <path d="M0,640 L120,580 L240,610 L360,560 L500,600 L620,560 L760,590 L880,550 L1020,580 L1160,540 L1300,580 L1440,560 L1440,900 L0,900 Z"
+            fill="url(#midMtnGrad)" opacity="0.92"/>
+
+      <!-- Mt. Fuji main -->
+      <path d="M450,720 L720,310 L990,720 Z" fill="url(#fujiGrad)"/>
+      <!-- Mt. Fuji ridges -->
+      <path d="M720,310 L820,520 L780,540 L760,520 L730,540 Z" fill="#1f2a44" opacity="0.4"/>
+      <path d="M720,310 L620,520 L650,540 L680,520 L700,540 Z" fill="#0f172e" opacity="0.3"/>
+
+      <!-- Snow cap (jagged) -->
+      <path d="M620,460 L640,440 L660,455 L680,425 L700,450 L720,310 L745,455 L765,425 L785,455 L810,440 L830,460 L820,475 L800,460 L780,475 L760,455 L740,475 L720,455 L700,475 L680,455 L660,475 L640,460 Z"
+            fill="url(#snowGrad)"/>
+
+      <!-- Lake reflection (subtle) -->
+      <ellipse cx="720" cy="780" rx="380" ry="14" fill="#f5e8d3" opacity="0.08"/>
+
+      <!-- Foreground hill -->
+      <path d="M0,780 Q360,720 720,760 T1440,760 L1440,900 L0,900 Z"
+            fill="#0d1224" opacity="0.95"/>
+
+      <!-- Pine trees -->
+      <g fill="#080d1e">
+        <path d="M50,810 L50,720 L60,720 L52,680 L70,710 L60,650 L80,700 L70,640 L90,690 L100,720 L100,810 Z"/>
+        <path d="M150,820 L150,750 L160,750 L155,720 L168,740 L160,705 L175,735 L168,705 L182,730 L195,750 L195,820 Z"/>
+        <path d="M1280,810 L1280,710 L1292,710 L1283,665 L1302,705 L1290,640 L1312,695 L1300,635 L1320,690 L1336,720 L1336,810 Z"/>
+        <path d="M1180,820 L1180,755 L1192,755 L1186,725 L1200,748 L1192,710 L1208,738 L1198,710 L1214,732 L1228,755 L1228,820 Z"/>
+      </g>
+
+      <!-- Trailer + Jeep silhouette -->
+      <g transform="translate(620,780)" fill="#fdf9ed" opacity="0.95">
+        <!-- Jeep -->
+        <rect x="0" y="-20" width="46" height="20" rx="2"/>
+        <rect x="6" y="-30" width="32" height="14" rx="2"/>
+        <circle cx="10" cy="2" r="6" fill="#080d1e"/>
+        <circle cx="10" cy="2" r="3" fill="#fdf9ed"/>
+        <circle cx="38" cy="2" r="6" fill="#080d1e"/>
+        <circle cx="38" cy="2" r="3" fill="#fdf9ed"/>
+        <!-- Hitch -->
+        <line x1="46" y1="-10" x2="56" y2="-10" stroke="#fdf9ed" stroke-width="2"/>
+        <!-- Trailer -->
+        <rect x="56" y="-36" width="76" height="36" rx="3"/>
+        <rect x="64" y="-30" width="20" height="14" fill="#d97243"/>
+        <rect x="92" y="-30" width="20" height="14" fill="#d97243"/>
+        <circle cx="80" cy="2" r="6" fill="#080d1e"/>
+        <circle cx="80" cy="2" r="3" fill="#fdf9ed"/>
+        <circle cx="110" cy="2" r="6" fill="#080d1e"/>
+        <circle cx="110" cy="2" r="3" fill="#fdf9ed"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="hero-issue"><span class="vol">VOL.</span>01 — May 2026</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Akiyoshi Family Roadtrip</div>
+    <h1 class="hero-title">さあ、冒険に出かけよう。<br class="br-mobile"><em>トレーラー旅の始まりです。</em></h1>
+    <p class="hero-subtitle">
+      福岡から夜の海をわたり、富士の麓で星を仰ぎ、伊勢の杜で手を合わせて、瀬戸内の海を辿って帰る。<br>
+      家族と、ちいさなお家を連れて。
+    </p>
+    <div class="hero-dates-line">
+      <span class="ornament">✦</span>
+      <span>2026.05.11 MON</span>
+      <span class="arrow"></span>
+      <span>2026.05.18 MON</span>
+      <span class="ornament">✦</span>
+    </div>
+    <div class="countdown" role="timer" aria-live="polite">
+      <div class="countdown-label">Departure in</div>
+      <div class="countdown-blocks">
+        <div class="countdown-block"><span class="num" id="cd-days">--</span><span class="unit">Days</span></div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-block"><span class="num" id="cd-hours">--</span><span class="unit">Hours</span></div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-block"><span class="num" id="cd-minutes">--</span><span class="unit">Min</span></div>
+        <span class="countdown-divider">:</span>
+        <div class="countdown-block"><span class="num" id="cd-seconds">--</span><span class="unit">Sec</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">scroll</div>
+</header>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#overview">家族</a>
+    <a href="#schedule">プラン</a>
+    <a href="#map">地図と寄り道</a>
+    <a href="#stops">止まる候補地</a>
+    <a href="#reservations">予約のしおり</a>
+    <a href="#packing">持ち物</a>
+    <a href="#contacts">連絡先</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     OVERVIEW
+============================================================ -->
+<section id="overview">
+  <div class="section-num">I</div>
+  <div class="section-eyebrow">Chapter One</div>
+  <h2 class="section-title">私たちの<em>家族</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.5 9 L21 10 L15 14.5 L17 22 L12 18 L7 22 L9 14.5 L3 10 L10.5 9 Z"/></svg>
+  </div>
+  <p class="section-lead">
+    大人ふたりと、ちいさなふたり、そして<em>いつも一緒のビス</em>。<br>
+    はじめて運ぶ「移動するお家」と、福岡を出発します。
+  </p>
+
+  <div class="members">
+    <div class="member">
+      <div class="member-portrait">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="24" r="10"/>
+          <path d="M14 54 C14 42 22 38 32 38 C42 38 50 42 50 54"/>
+          <path d="M22 16 C24 12 28 10 32 10" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="member-name">一貴<span class="en">Kazuki</span></div>
+      <div class="member-role">リーダー兼運転手</div>
+    </div>
+    <div class="member">
+      <div class="member-portrait">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="24" r="10"/>
+          <path d="M14 54 C14 42 22 38 32 38 C42 38 50 42 50 54"/>
+          <path d="M22 16 C16 24 18 32 22 32 M42 16 C48 24 46 32 42 32"/>
+        </svg>
+      </div>
+      <div class="member-name">レイナ<span class="en">Reina</span></div>
+      <div class="member-role">子分兼盛り上げ担当</div>
+    </div>
+    <div class="member">
+      <div class="member-portrait">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="28" r="11"/>
+          <path d="M18 56 C18 46 24 42 32 42 C40 42 46 46 46 56"/>
+          <circle cx="28" cy="26" r="1.2" fill="currentColor"/>
+          <circle cx="36" cy="26" r="1.2" fill="currentColor"/>
+          <path d="M28 32 Q32 35 36 32"/>
+          <path d="M22 18 L26 14 L24 20 Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="member-name">鈴花<span class="en">Suzuka</span></div>
+      <div class="member-role">好奇心担当</div>
+    </div>
+    <div class="member">
+      <div class="member-portrait">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="30" r="12"/>
+          <path d="M20 56 C20 48 26 44 32 44 C38 44 44 48 44 56"/>
+          <circle cx="28" cy="28" r="1.2" fill="currentColor"/>
+          <circle cx="36" cy="28" r="1.2" fill="currentColor"/>
+          <path d="M30 34 Q32 36 34 34"/>
+        </svg>
+      </div>
+      <div class="member-name">大樹<span class="en">Taiki</span></div>
+      <div class="member-role">ハニカミ担当</div>
+    </div>
+    <div class="member">
+      <div class="member-portrait">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="32" cy="34" rx="14" ry="13"/>
+          <path d="M20 24 L18 14 L26 20 Z" fill="currentColor"/>
+          <path d="M44 24 L46 14 L38 20 Z" fill="currentColor"/>
+          <circle cx="27" cy="32" r="1.5" fill="currentColor"/>
+          <circle cx="37" cy="32" r="1.5" fill="currentColor"/>
+          <ellipse cx="32" cy="40" rx="3" ry="2" fill="currentColor"/>
+          <path d="M30 44 Q32 46 34 44"/>
+        </svg>
+      </div>
+      <div class="member-name">ビス<span class="en">BISS</span></div>
+      <div class="member-role">暴れん坊担当</div>
+    </div>
+  </div>
+
+  <div class="vehicle-section">
+    <div class="vehicle-illust">
+      <svg viewBox="0 0 420 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- ground line -->
+        <line x1="0" y1="170" x2="420" y2="170" stroke="rgba(212,181,116,0.4)" stroke-dasharray="3,5"/>
+        <!-- Trailer body -->
+        <g stroke="#d4b574">
+          <path d="M180 170 L180 90 Q180 80 190 80 L380 80 Q390 80 390 90 L390 170 Z"/>
+          <!-- Window -->
+          <rect x="210" y="100" width="50" height="38" rx="2"/>
+          <line x1="235" y1="100" x2="235" y2="138"/>
+          <!-- Door -->
+          <rect x="280" y="100" width="40" height="58" rx="2"/>
+          <circle cx="312" cy="130" r="1.5" fill="#d4b574"/>
+          <!-- Side window -->
+          <rect x="335" y="100" width="40" height="32" rx="2"/>
+          <!-- AC unit on top -->
+          <rect x="280" y="68" width="36" height="14" rx="2"/>
+          <!-- Wheels -->
+          <circle cx="245" cy="170" r="14" fill="#1f2a3a" stroke="#d4b574"/>
+          <circle cx="245" cy="170" r="6" fill="none" stroke="#d4b574"/>
+          <circle cx="345" cy="170" r="14" fill="#1f2a3a" stroke="#d4b574"/>
+          <circle cx="345" cy="170" r="6" fill="none" stroke="#d4b574"/>
+          <!-- Hitch -->
+          <line x1="180" y1="150" x2="148" y2="155"/>
+          <circle cx="148" cy="155" r="3" fill="#d4b574"/>
+        </g>
+        <!-- Jeep -->
+        <g stroke="#d4b574">
+          <path d="M30 170 L30 130 L46 130 L52 110 L116 110 L122 130 L148 130 L148 170 Z"/>
+          <!-- Windows -->
+          <line x1="52" y1="130" x2="60" y2="115"/>
+          <line x1="116" y1="130" x2="108" y2="115"/>
+          <line x1="84" y1="113" x2="84" y2="130"/>
+          <!-- Wheels -->
+          <circle cx="60" cy="170" r="14" fill="#1f2a3a" stroke="#d4b574"/>
+          <circle cx="60" cy="170" r="6" fill="none" stroke="#d4b574"/>
+          <circle cx="118" cy="170" r="14" fill="#1f2a3a" stroke="#d4b574"/>
+          <circle cx="118" cy="170" r="6" fill="none" stroke="#d4b574"/>
+          <!-- Headlight -->
+          <circle cx="38" cy="142" r="3" fill="#d4b574"/>
+        </g>
+        <!-- Stars -->
+        <g fill="#d4b574" opacity="0.7">
+          <circle cx="100" cy="30" r="1.2"/>
+          <circle cx="220" cy="20" r="1.5"/>
+          <circle cx="340" cy="30" r="1"/>
+          <circle cx="60" cy="50" r="0.8"/>
+          <circle cx="280" cy="50" r="1"/>
+          <circle cx="380" cy="40" r="1.2"/>
+        </g>
+      </svg>
+    </div>
+    <div class="vehicle-text">
+      <div class="label">— Our Rig, Our Home —</div>
+      <h3>私たちの旅は、<em>ちいさなお家と共に</em></h3>
+      <div class="vehicle-grid">
+        <div><span>Tow Vehicle</span>Jeep JK Wrangler<br>Unlimited Sport<br><small style="opacity:.7;">Off-road heritage / 4.5 m</small></div>
+        <div><span>Caravan</span>Trigano Emerald<br>406V<br><small style="opacity:.7;">French-built / 4-berth</small></div>
+        <div><span>Total Length</span>10.3 m<br><small style="opacity:.7;">(33.8 ft combined)</small></div>
+        <div><span>Power Bank</span>BLUETTI AC200L<br>7,577 Wh<br><small style="opacity:.7;">Solar-ready / off-grid</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    家族と旅をすること、<br>それは最高の経験。
+    <span class="author">— En Route, May 2026</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHEDULE
+============================================================ -->
+<section id="schedule">
+  <div class="section-num">II</div>
+  <div class="section-eyebrow">Chapter Two</div>
+  <h2 class="section-title">今決まっている<em>プラン</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2 L12 6 M12 18 L12 22 M2 12 L6 12 M18 12 L22 12 M5 5 L7.5 7.5 M16.5 16.5 L19 19 M5 19 L7.5 16.5 M16.5 7.5 L19 5"/></svg>
+  </div>
+  <p class="section-lead">
+    フェリーで本州へ渡り、富士の麓で星を仰ぎ、静波で海と仕事と。<br>
+    伊勢で手を合わせて、<em>夜の山陽道</em>を駆け抜けて福岡へ帰る。
+  </p>
+
+  <div class="timeline">
+
+    <div class="timeline-item confirmed">
+      <div class="timeline-icon">
+        <!-- ferry -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 16 L21 16 L19 20 L5 20 Z"/>
+          <path d="M5 16 L5 12 L19 12 L19 16"/>
+          <rect x="8" y="6" width="8" height="6"/>
+          <path d="M12 2 L12 6"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 1 — May 11 (Mon)</div>
+      <div class="timeline-title">福岡を出発、夜の海をわたる</div>
+      <p class="timeline-body">新門司港 23:55発の夜行フェリー。船内のウィズペットルームで、ビスとひとつ屋根の下で眠る最初の夜。デッキから見る瀬戸内の灯り、忘れられない出発になる。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag confirmed">予約確定</span>
+        <span class="timeline-tag">船中泊</span>
+        <span class="timeline-tag">瀬戸内</span>
+      </div>
+    </div>
+
+    <div class="timeline-item confirmed">
+      <div class="timeline-icon">
+        <!-- hotel/bed -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 18 L3 8 L21 8 L21 18"/>
+          <path d="M3 13 L21 13"/>
+          <path d="M3 18 L3 21 M21 18 L21 21"/>
+          <circle cx="8" cy="11" r="0.8" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 2 — May 12 (Tue)</div>
+      <div class="timeline-title">瀬戸内を抜けて、<em>横須賀港</em>へ</div>
+      <p class="timeline-body">船で過ごす丸一日。窓の外を流れる海と空と港。20:45横須賀着。下船後は車で新横浜へ向かい、22:30チェックイン。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag confirmed">フェリー＋ホテル</span>
+        <span class="timeline-tag">遅着</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <!-- key/handover -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="8" cy="14" r="4"/>
+          <path d="M11 14 L20 14 L20 11 L18 11 L18 14"/>
+          <path d="M22 11 L22 14"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 3 — May 13 (Wed)</div>
+      <div class="timeline-title">狭山で、<em>トレーラーをピックアップ</em></div>
+      <p class="timeline-body">いよいよ我が家のトレーラーを受け取る日。連結して、富士山方面へ初運転。第一候補は富士山ビュー＋ドッグランの「RVパーク ITAZUMA」（御殿場）。Jeepだけ切り離して箱根湯本でひと風呂、もアリ。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag">初運転</span>
+        <span class="timeline-tag tbd">RVパーク ITAZUMA（候補）</span>
+      </div>
+    </div>
+
+    <div class="timeline-item confirmed">
+      <div class="timeline-icon">
+        <!-- mountain/star -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 19 L9 9 L13 14 L16 11 L21 19 Z"/>
+          <circle cx="17" cy="5" r="0.8" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 4 — May 14 (Thu)</div>
+      <div class="timeline-title">ふもとっぱらで、<em>富士に抱かれて</em></div>
+      <p class="timeline-body">標高830m、目の前にそびえる富士山。BLUETTIが運んできた電気で、夜は子供たちのミルクも温かい。星の数を数えながら、焚き火の前で過ごす夜。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag confirmed">予約確定</span>
+        <span class="timeline-tag">焚き火</span>
+        <span class="timeline-tag">星空</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <!-- wave/surf -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 14 Q5 11 8 14 T14 14 T20 14 T22 13"/>
+          <path d="M2 18 Q5 15 8 18 T14 18 T20 18 T22 17"/>
+          <ellipse cx="17" cy="6" rx="4" ry="1.5" transform="rotate(-30 17 6)"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 5 — May 15 (Fri)</div>
+      <div class="timeline-title">朝霧から、<em>静波の海</em>へ</div>
+      <p class="timeline-body">朝霧から東へ約160km。牧之原の「静波サーフスタジアム」で人工波を眺める（観覧550円）。夜は徒歩圏の「接続の森 RV PARK」へ。芝生サイトで犬は走り、子供は転がる。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag tbd">接続の森 RV PARK（候補）</span>
+        <span class="timeline-tag">サーフ観覧</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <!-- laptop/work day -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="12" rx="1.5"/>
+          <path d="M2 20 L22 20"/>
+          <path d="M10 17 L14 17"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 6 — May 16 (Sat)</div>
+      <div class="timeline-title">静波で、<em>仕事と海風の一日</em></div>
+      <p class="timeline-body">「接続の森 RV PARK」で連泊。BLUETTI＋StarlinkでPCに向かう仕事日。子供たちは芝生で転がり、ビスは海風で冷ます。夕方には湯につかりに散歩へ。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag tbd">接続の森 連泊（候補）</span>
+        <span class="timeline-tag">仕事日</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <!-- shrine torii -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6 L21 6"/>
+          <path d="M4 4 L20 4"/>
+          <path d="M5 6 L5 21"/>
+          <path d="M19 6 L19 21"/>
+          <path d="M5 11 L19 11"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 7 — May 17 (Sun)</div>
+      <div class="timeline-title">伊勢神宮、<em>そして夜の西進</em></div>
+      <p class="timeline-body">早朝の伊勢神宮で、家族の旅の安全を祈る。おかげ横丁で赤福、夫婦岩で朝日。子供たちが眠った夜、山陽道を山口「みちしお」まで一気に駆け抜ける。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag">参拝</span>
+        <span class="timeline-tag tbd">RVパーク みちしお（候補）</span>
+        <span class="timeline-tag">🌙夜間西進</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <!-- home -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12 L12 4 L21 12"/>
+          <path d="M5 11 L5 20 L19 20 L19 11"/>
+          <path d="M10 20 L10 14 L14 14 L14 20"/>
+        </svg>
+      </div>
+      <div class="timeline-date">Day 8 — May 18 (Mon)</div>
+      <div class="timeline-title">関門海峡を渡って、<em>福岡へ</em></div>
+      <p class="timeline-body">山口「みちしお」で朝寝、昼に出発。福岡まで約100km、関門海峡を渡って、いつもの街へ夕方には帰り着く。家族のあたらしい思い出が、もう一つできている。お疲れさま。</p>
+      <div class="timeline-tags">
+        <span class="timeline-tag">帰着</span>
+        <span class="timeline-tag">夜着OK</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     MAP
+============================================================ -->
+<section id="map">
+  <div class="section-num">III</div>
+  <div class="section-eyebrow">Chapter Three</div>
+  <h2 class="section-title">地図と、<em>寄り道スポット</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z" fill="currentColor"/></svg>
+  </div>
+  <p class="section-lead">
+    ピンをタップすると詳細が出ます。<br>
+    すべて立ち寄るわけではなく、<em>その日の気分で選ぶための"おすすめリスト"</em>です。
+  </p>
+
+  <div class="compass-wrap">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="28"/>
+      <circle cx="32" cy="32" r="22" stroke-dasharray="2,4"/>
+      <path d="M32 4 L36 28 L32 32 L28 28 Z" fill="currentColor"/>
+      <path d="M32 60 L36 36 L32 32 L28 36 Z" fill="none"/>
+      <path d="M4 32 L28 28 L32 32 L28 36 Z" fill="none"/>
+      <path d="M60 32 L36 28 L32 32 L36 36 Z" fill="none"/>
+      <text x="32" y="14" text-anchor="middle" font-size="6" font-family="serif" fill="currentColor" stroke="none">N</text>
+    </svg>
+  </div>
+
+  <div class="map-wrap">
+    <div class="map-frame-corner tl"></div>
+    <div class="map-frame-corner tr"></div>
+    <div class="map-frame-corner bl"></div>
+    <div class="map-frame-corner br"></div>
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="legend-item"><span class="legend-pin" style="background:#b8923f;"></span><strong>金ピン</strong> ＝ 旅程の拠点（確定の予約・受取地・帰着）</div>
+      <div class="legend-item"><span class="legend-pin" style="background:#5b8aa8;"></span><strong>青ピン</strong> ＝ 自然・絶景（山・湖・滝など）</div>
+      <div class="legend-item"><span class="legend-pin" style="background:#7a4965;"></span><strong>紫ピン</strong> ＝ 神社・歴史（神社仏閣・世界遺産）</div>
+      <div class="legend-item"><span class="legend-pin" style="background:#c45c47;"></span><strong>赤ピン</strong> ＝ 温泉（立ち寄り湯・温泉街）</div>
+      <div class="legend-item"><span class="legend-pin" style="background:#d97243;"></span><strong>橙ピン</strong> ＝ 子供向け・体験（牧場・サーフ・動物体験）</div>
+      <div class="legend-item"><span class="legend-pin" style="background:#6b7f5e;"></span><strong>緑ピン</strong> ＝ 街・グルメ（港町・レトロ街・ご当地グルメ）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STOPS  — Candidate places along the route
+============================================================ -->
+<section id="stops">
+  <div class="section-num">IV</div>
+  <div class="section-eyebrow">Chapter Four</div>
+  <h2 class="section-title">止まったら、<em>面白そうなところ</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 C12 21 4 14 4 9 A8 8 0 0 1 20 9 C20 14 12 21 12 21 Z"/><circle cx="12" cy="9" r="3"/></svg>
+  </div>
+  <p class="section-lead">
+    現プランのルート上で、<em>その日の気分で寄り道できる候補地</em>。<br>
+    全部行くわけじゃない。「面白そう」と思ったら、ハンドルを切る。
+  </p>
+
+  <div class="stops-grid">
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 3 — Onsen</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Lake_Ashi_20190607_164717.jpg/1280px-Lake_Ashi_20190607_164717.jpg" alt="芦ノ湖" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">箱根温泉（湯本）<span class="en">Hakone Onsen</span></div>
+        <p class="stop-desc">5/13 御殿場到着の夕方、トレーラーを置いてJeepだけで湯本へ降りる作戦。タトゥーOKの家族風呂を事前確認のうえ。10.3 m rigで箱根新道は厳禁。</p>
+        <div class="stop-meta"><span class="day">Day 3</span><span>温泉</span><span>Jeep切離し前提</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 4 — Highlight</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Mt._Fuji_%26_Asagiri-kogen.jpg" alt="朝霧高原と富士山" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">ふもとっぱらキャンプ場<span class="en">Fumotoppara</span></div>
+        <p class="stop-desc">標高830m、目の前にそびえる富士山。広大な草原サイトで、子供たちは走り回り、ビスは思いきり伸びをする。Day 4の本命。星空・朝焼け・富士のシルエットが一晩で全部観られる。</p>
+        <div class="stop-meta"><span class="day">Day 4</span><span>本命</span><span>富士ビュー</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 4 — Family</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Makainobokujo.jpg" alt="まかいの牧場" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">まかいの牧場・富士ミルクランド<span class="en">Asagiri Highlands</span></div>
+        <p class="stop-desc">朝霧高原の動物体験。まかいの牧場は犬同伴入園可（1頭300円）、テラス席もOK。ふもとっぱらと同じエリアで、午前中にサクッと立ち寄れる。</p>
+        <div class="stop-meta"><span class="day">Day 4</span><span>動物体験</span><span>犬OK</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 4 — Nature</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Shiraito_Falls_%28Shizuoka%29%2C_Obin-mizu.jpg/1280px-Shiraito_Falls_%28Shizuoka%29%2C_Obin-mizu.jpg" alt="白糸の滝" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">白糸の滝<span class="en">Shiraito Falls</span></div>
+        <p class="stop-desc">富士山南西、絹のような繊細な滝。駐車場広め、ベビーカー対応の遊歩道あり。世界遺産富士山の構成資産のひとつ。</p>
+        <div class="stop-meta"><span class="day">Day 4</span><span>世界遺産</span><span>ベビーカーOK</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 5 — Family</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Shizunami_Beach.jpg/1280px-Shizunami_Beach.jpg" alt="静波の海" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">静波サーフスタジアム<span class="en">Shizunami Surf Stadium</span></div>
+        <p class="stop-desc">日本最大級の人工波プール。観覧550円で十分楽しめる。一貴さんが行きたい場所。犬は同伴NGなので、ビスはトレーラーで留守番。</p>
+        <div class="stop-meta"><span class="day">Day 5</span><span>サーフ観覧</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 7 — Shrine</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Naiku_03.JPG/1280px-Naiku_03.JPG" alt="伊勢神宮内宮" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">伊勢神宮 内宮<span class="en">Ise Jingu</span></div>
+        <p class="stop-desc">日本人の心のふるさと。早朝参拝が空いていておすすめ。10.3 m rigのまま近づけないので、RVパーク伊勢朝熊にトレーラーを置いてJeepで参拝。</p>
+        <div class="stop-meta"><span class="day">Day 7</span><span>参拝</span><span>早朝推奨</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 7 — Shrine</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Meoto_Iwa.jpg/1280px-Meoto_Iwa.jpg" alt="夫婦岩" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">夫婦岩・二見興玉神社<span class="en">Meoto-Iwa</span></div>
+        <p class="stop-desc">伊勢の朝日スポット。夫婦円満祈願の聖地。駐車場広めで、犬連れも外観のみOK。子供たちに朝日を見せてあげたい。</p>
+        <div class="stop-meta"><span class="day">Day 7</span><span>朝日</span><span>犬OK（外）</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 7〜8 — City</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Kurashiki_Bikan_historical_quarter_2.jpg/1280px-Kurashiki_Bikan_historical_quarter_2.jpg" alt="倉敷美観地区" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">倉敷美観地区<span class="en">Kurashiki Bikan</span></div>
+        <p class="stop-desc">白壁の町並みと柳の運河。山陽道沿いで、5/17夜の西進中継候補。子供を寝かせて夜走り、朝に立ち寄るのも◎。</p>
+        <div class="stop-meta"><span class="day">Day 7〜8</span><span>レトロ街</span></div>
+      </div>
+    </div>
+
+    <div class="stop-card">
+      <div class="stop-photo">
+        <span class="stop-cat">Day 8 — Nature</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Kanmonkyo_Bridge_and_Mekari_acrossing_Kammon_Strait_20150621.JPG/1280px-Kanmonkyo_Bridge_and_Mekari_acrossing_Kammon_Strait_20150621.JPG" alt="関門海峡" loading="lazy" onerror="this.parentNode.classList.add('no-photo'); this.style.display='none';">
+      </div>
+      <div class="stop-body">
+        <div class="stop-name">関門海峡・門司港レトロ<span class="en">Kanmon Strait / Mojiko Retro</span></div>
+        <p class="stop-desc">本州と九州を繋ぐ海峡。橋を渡れば「帰ってきた」実感。門司港レトロは大正ロマンの港町、九州側の入口。最終日のごほうび散歩に。</p>
+        <div class="stop-meta"><span class="day">Day 8</span><span>帰着前</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     RESERVATIONS
+============================================================ -->
+<section id="reservations">
+  <div class="section-num">V</div>
+  <div class="section-eyebrow">Chapter Five</div>
+  <h2 class="section-title">予約の<em>しおり</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4 L13 4 L21 12 L13 20 L3 20 Z"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/></svg>
+  </div>
+  <p class="section-lead">
+    確定済みの予約は<em>3件</em>（フェリー・新横浜・ふもとっぱら）。<br>
+    残りの夜は、ルート上の候補地から当日の風まかせで選びます。
+  </p>
+
+  <div class="reservations">
+    <div class="res-card">
+      <div class="label"><span class="num">01</span>Day 1 — Ferry</div>
+      <h4>東京九州フェリー</h4>
+      <dl>
+        <dt>便</dt><dd>新門司 23:55 → 横須賀 翌20:45</dd>
+        <dt>客室</dt><dd>ステートツイン<br>ウィズペットルーム</dd>
+        <dt>人数</dt><dd>大人2・幼児1・乳児1</dd>
+        <dt>車両</dt><dd>乗用車5m未満 ×1</dd>
+        <dt>申込番号</dt><dd>600982432</dd>
+        <dt>合計</dt><dd class="highlight">¥88,000</dd>
+      </dl>
+      <div class="barcode">— Boarding QR via frens.tqf.co.jp —</div>
+    </div>
+
+    <div class="res-card">
+      <div class="label"><span class="num">02</span>Day 2 — Hotel</div>
+      <h4>ホテルリブマックス新横浜</h4>
+      <dl>
+        <dt>住所</dt><dd>横浜市港北区<br>新横浜2-14-19</dd>
+        <dt>IN</dt><dd class="highlight">5/12 22:30</dd>
+        <dt>OUT</dt><dd>5/13</dd>
+        <dt>プラン</dt><dd>Dog×Stay 〜ワンちゃん同伴〜【素泊り】</dd>
+        <dt>受付番号</dt><dd>RYa0mmxj5u</dd>
+        <dt>電話</dt><dd>045-471-4100</dd>
+      </dl>
+      <div class="barcode">— Late check-in confirmed —</div>
+    </div>
+
+    <div class="res-card">
+      <div class="label"><span class="num">03</span>Day 4 — Camp</div>
+      <h4>ふもとっぱらキャンプ場</h4>
+      <dl>
+        <dt>所在地</dt><dd>静岡県富士宮市麓156<br>（標高830m）</dd>
+        <dt>泊数</dt><dd>1泊2日（5/14木）</dd>
+        <dt>人数</dt><dd>大人2・未就学児2</dd>
+        <dt>車両</dt><dd>キャンピングトレーラー</dd>
+        <dt>予約番号</dt><dd>202604-408168</dd>
+        <dt>合計</dt><dd class="highlight">¥6,000</dd>
+      </dl>
+      <div class="barcode">— 0544-52-2112 / fumotoppara.net —</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PACKING
+============================================================ -->
+<section id="packing">
+  <div class="section-num">VI</div>
+  <div class="section-eyebrow">Chapter Six</div>
+  <h2 class="section-title">持ち物<em>チェックリスト</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>
+  </div>
+  <p class="section-lead">
+    タップすると<em>「✓ 完了」</em>マークがつきます。<br>
+    このブラウザに記録されるので、開き直してもチェックは残ります。
+  </p>
+
+  <div class="packing-illust">
+    <svg viewBox="0 0 220 90" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- suitcase 1 -->
+      <rect x="14" y="32" width="50" height="40" rx="3"/>
+      <line x1="14" y1="44" x2="64" y2="44"/>
+      <path d="M28 32 L28 26 Q28 22 32 22 L46 22 Q50 22 50 26 L50 32"/>
+      <circle cx="22" cy="58" r="1" fill="currentColor"/>
+      <!-- backpack -->
+      <path d="M86 30 Q86 22 96 22 L114 22 Q124 22 124 30 L124 72 L86 72 Z"/>
+      <path d="M96 22 Q96 14 105 14 Q114 14 114 22"/>
+      <line x1="86" y1="40" x2="124" y2="40"/>
+      <rect x="98" y="50" width="14" height="14" rx="1"/>
+      <!-- camera -->
+      <rect x="146" y="36" width="56" height="34" rx="3"/>
+      <path d="M158 36 L162 30 L186 30 L190 36"/>
+      <circle cx="174" cy="53" r="9"/>
+      <circle cx="174" cy="53" r="4"/>
+      <circle cx="194" cy="44" r="1.5" fill="currentColor"/>
+      <!-- stars/sparkles -->
+      <g stroke="none" fill="currentColor" opacity="0.6">
+        <path d="M76 14 L78 12 L78 16 Z M76 14 L74 12 L74 16 Z" />
+        <circle cx="138" cy="14" r="1.5"/>
+        <circle cx="208" cy="20" r="1.2"/>
+        <circle cx="42" cy="14" r="1"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="pack-controls">
+    <span class="pack-progress-text" id="packProgressText">0 / 0</span>
+    <div class="pack-progress"><div class="pack-progress-bar" id="packProgressBar"></div></div>
+    <button class="pack-reset" id="packReset">すべてリセット</button>
+  </div>
+
+  <div class="pack-grid" id="packGrid">
+    <!-- categories injected by JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACTS
+============================================================ -->
+<section id="contacts">
+  <div class="section-num">VII</div>
+  <div class="section-eyebrow">Chapter Seven</div>
+  <h2 class="section-title">困ったときは、<em>ここへ</em></h2>
+  <div class="ornament-divider">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </div>
+
+  <div class="tips">
+    <div class="tip-card">
+      <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a4 4 0 0 0-8 0"/><path d="M2 12h2 M16 12h2 M5 5l1.4 1.4 M14.6 5L13 6.4"/><path d="M10 8V2"/></svg>
+      <h4>ふもとっぱらの夜は、ぐっと冷える</h4>
+      <p>標高830m、5月でも夜は10℃前後。大人も子供も、防寒着を一枚多めに用意しておきたい。</p>
+    </div>
+    <div class="tip-card">
+      <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5C9 8.5 11 7 12 7s3 1.5 3 4.5"/><path d="M19 13c0 5-3 8-7 8s-7-3-7-8"/><path d="M5 13a3 3 0 0 1 0-6"/><path d="M19 13a3 3 0 0 0 0-6"/></svg>
+      <h4>ビスのワクチン証明書は原本で</h4>
+      <p>狂犬病ワクチン接種証明書はフェリー乗船時に係員が確認。コピーではなく原本を必ず携帯。</p>
+    </div>
+    <div class="tip-card">
+      <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <h4>フェリー乗船は<strong>出港60分前</strong>まで</h4>
+      <p>新門司港 22:55 までにチェックイン。GW・夏季は90分前のため、余裕をもって到着したい。</p>
+    </div>
+    <div class="tip-card">
+      <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M5 6V4 M19 6V4"/></svg>
+      <h4>10.3 m rigは、駐車場注意</h4>
+      <p>観光地への直接乗り入れが厳しい場面あり。Jeepを切離して身軽に動く前提で計画を立てる。</p>
+    </div>
+  </div>
+
+  <div class="contacts">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Direct Lines
+    </h3>
+    <dl>
+      <dt>東京九州フェリー（予約サイト）</dt><dd><a href="https://frens.tqf.co.jp/" target="_blank">frens.tqf.co.jp</a></dd>
+      <dt>東京九州フェリー（公式）</dt><dd><a href="https://tqf.co.jp/" target="_blank">tqf.co.jp</a></dd>
+      <dt>ホテルリブマックス新横浜</dt><dd>045-471-4100</dd>
+      <dt>ふもとっぱらキャンプ場</dt><dd>0544-52-2112 / <a href="https://fumotoppara.net/" target="_blank">fumotoppara.net</a></dd>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-ornament">
+    <svg viewBox="0 0 80 30" fill="currentColor"><path d="M0 15 L26 15 M54 15 L80 15" stroke="currentColor" stroke-width="0.6" fill="none"/><circle cx="32" cy="15" r="1.5"/><path d="M40 8 L42 14 L48 15 L42 16 L40 22 L38 16 L32 15 L38 14 Z"/><circle cx="48" cy="15" r="1.5"/></svg>
+  </div>
+  <p>
+    Akiyoshi Family Roadtrip 2026<br>
+    <span class="light">✦</span> May the road rise to meet us. <span class="light">✦</span>
+  </p>
+  <div class="signature">— en route, with love —</div>
+</footer>
+
+<!-- ============================================================
+     JS
+============================================================ -->
+<!-- 🎵 ミニマル音楽プレーヤー -->
+<div id="music-fab">
+  <button id="music-fab-btn" type="button" onclick="rtMusicToggle()" aria-label="音楽再生">
+    ✦ Play Music
+  </button>
+  <div id="music-tray">
+    <iframe
+      id="rt-iframe"
+      style="border-radius:4px;"
+      width="100%"
+      height="152"
+      src=""
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"></iframe>
+    <div class="music-tracks" role="tablist">
+      <button type="button" data-track="country" class="active" onclick="rtSwitchTrack('country')">Country Roads</button>
+      <button type="button" data-track="fire" onclick="rtSwitchTrack('fire')">焚き火</button>
+      <button type="button" data-track="rain" onclick="rtSwitchTrack('rain')">Nature</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+/* ---------- Countdown (フェリー出航 2026/5/11 23:55 まで) ---------- */
+function updateCountdown() {
+  const target = new Date('2026-05-11T23:55:00+09:00').getTime();
+  const now = Date.now();
+  const diff = target - now;
+  const set = (id, n) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = String(Math.max(0, n)).padStart(2, '0');
+  };
+  if (diff <= 0) {
+    set('cd-days', 0); set('cd-hours', 0); set('cd-minutes', 0); set('cd-seconds', 0);
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  set('cd-days', days); set('cd-hours', hours); set('cd-minutes', minutes); set('cd-seconds', seconds);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ---------- Music Player (Spotify) ---------- */
+const TRACK_LIBRARY_RT = {
+  country: { id: '448mZKZ9AizlUi3zcaBgD6', name: 'Country Roads' },
+  fire: { id: '3sJqtGvhO0ucMKvcrf7RmP', name: '焚き火' },
+  rain: { id: '5zsndH7Bymcm6lvyjSJFGO', name: 'Nature' }
+};
+let currentRTTrack = 'country';
+function rtMusicToggle() {
+  const tray = document.getElementById('music-tray');
+  const btn = document.getElementById('music-fab-btn');
+  const iframe = document.getElementById('rt-iframe');
+  const open = tray.classList.contains('open');
+  if (open) {
+    tray.classList.remove('open');
+    iframe.src = '';
+    btn.classList.remove('playing');
+    btn.innerHTML = '✦ Play Music';
+  } else {
+    iframe.src = `https://open.spotify.com/embed/track/${TRACK_LIBRARY_RT[currentRTTrack].id}?utm_source=generator&autoplay=1`;
+    tray.classList.add('open');
+    btn.classList.add('playing');
+    btn.innerHTML = '✦ Pause';
+  }
+}
+function rtSwitchTrack(key) {
+  currentRTTrack = key;
+  document.querySelectorAll('.music-tracks button').forEach(b => {
+    b.classList.toggle('active', b.dataset.track === key);
+  });
+  const iframe = document.getElementById('rt-iframe');
+  // playlist にも対応
+  const trk = TRACK_LIBRARY_RT[key];
+  const path = (key === 'rain') ? 'playlist' : 'track';
+  iframe.src = `https://open.spotify.com/embed/${path}/${trk.id}?utm_source=generator&autoplay=1`;
+}
+
+/* ---------- Map (Leaflet) ---------- */
+const map = L.map('map', { scrollWheelZoom: false });
+const routeBounds = L.latLngBounds([[33.4, 130.3], [35.9, 140.2]]);
+map.fitBounds(routeBounds, { padding: [30, 30] });
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap',
+  maxZoom: 18
+}).addTo(map);
+
+const colors = {
+  trip:    '#b8923f',
+  nature:  '#5b8aa8',
+  shrine:  '#7a4965',
+  onsen:   '#c45c47',
+  family:  '#d97243',
+  city:    '#6b7f5e'
+};
+
+function makeIcon(color, isTrip) {
+  const size = isTrip ? 22 : 16;
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;background:${color};border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3);${isTrip ? 'box-shadow:0 0 0 4px rgba(184,146,63,0.25),0 2px 6px rgba(0,0,0,0.3);' : ''}"></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
+  });
+}
+
+const spots = [
+  { lat: 33.9333, lng: 130.9667, cat: 'trip',  name: '新門司港',   desc: 'Day 1 出発／東京九州フェリー乗船' },
+  { lat: 35.2828, lng: 139.6717, cat: 'trip',  name: '横須賀港',   desc: 'Day 2 到着 20:45' },
+  { lat: 35.5076, lng: 139.6173, cat: 'trip',  name: 'ホテルリブマックス新横浜', desc: 'Day 2 宿泊（Dog×Stayプラン）' },
+  { lat: 35.8527, lng: 139.4108, cat: 'trip',  name: '狭山市（トレーラー受取）', desc: 'Day 3 トレーラーをピックアップ' },
+  { lat: 35.4378, lng: 138.6125, cat: 'trip',  name: 'ふもとっぱらキャンプ場', desc: 'Day 4 富士山ビュー / BLUETTI運用' },
+
+  { lat: 35.3606, lng: 138.7274, cat: 'nature', name: '富士山',     desc: '今回の旅のメインビュー' },
+  { lat: 35.5119, lng: 138.7553, cat: 'nature', name: '河口湖',     desc: '富士五湖の中で観光が一番しやすい' },
+  { lat: 35.4156, lng: 138.8779, cat: 'nature', name: '山中湖',     desc: '湖畔キャンプ場・犬連れOK施設多数' },
+  { lat: 35.4581, lng: 138.8394, cat: 'nature', name: '忍野八海',   desc: '富士湧水の絶景8つの池' },
+  { lat: 35.3033, lng: 138.5867, cat: 'nature', name: '白糸の滝',   desc: '富士山南西、絹のような滝' },
+  { lat: 34.9956, lng: 138.5256, cat: 'nature', name: '三保松原',   desc: '富士山＋松原＋海の絶景（清水）' },
+  { lat: 35.2050, lng: 139.0144, cat: 'nature', name: '芦ノ湖',     desc: '箱根の湖。海賊船あり' },
+  { lat: 35.2436, lng: 139.0211, cat: 'nature', name: '大涌谷',     desc: '硫黄煙が立ち昇る火山地形・黒たまご' },
+  { lat: 34.7361, lng: 137.5933, cat: 'nature', name: '浜名湖',     desc: '湖畔キャンプ場・うなぎ' },
+  { lat: 35.2762, lng: 136.2517, cat: 'nature', name: '琵琶湖（彦根周辺）', desc: '日本一の湖。湖畔ドライブ' },
+  { lat: 34.2289, lng: 131.3072, cat: 'nature', name: '秋芳洞', desc: '日本最大級の鍾乳洞' },
+  { lat: 33.9583, lng: 130.9528, cat: 'nature', name: '関門海峡',   desc: '本州と九州を繋ぐ海峡。橋が美しい' },
+
+  { lat: 34.4548, lng: 136.7257, cat: 'shrine', name: '伊勢神宮（内宮）', desc: '日本人の心のふるさと。早朝参拝が空いていておすすめ' },
+  { lat: 34.5114, lng: 136.7869, cat: 'shrine', name: '夫婦岩（二見興玉神社）', desc: '伊勢の朝日スポット。夫婦円満祈願' },
+  { lat: 34.6850, lng: 135.8431, cat: 'shrine', name: '奈良公園・東大寺', desc: '鹿と大仏。子供も大はしゃぎ' },
+  { lat: 34.9671, lng: 135.7727, cat: 'shrine', name: '伏見稲荷大社', desc: '千本鳥居。早朝or夕方が空いている' },
+  { lat: 34.9948, lng: 135.7850, cat: 'shrine', name: '清水寺',       desc: '京都の象徴的なお寺' },
+  { lat: 34.8394, lng: 134.6939, cat: 'shrine', name: '姫路城',       desc: '世界遺産・国宝。白すぎ城' },
+  { lat: 34.6669, lng: 133.9358, cat: 'shrine', name: '岡山後楽園',   desc: '日本三名園の一つ' },
+  { lat: 34.2956, lng: 132.3197, cat: 'shrine', name: '宮島・厳島神社', desc: '海に浮かぶ朱の鳥居。世界遺産' },
+  { lat: 34.1672, lng: 132.1761, cat: 'shrine', name: '錦帯橋',       desc: '岩国の木造アーチ橋。江戸期の名橋' },
+
+  { lat: 35.2333, lng: 139.1056, cat: 'onsen',  name: '箱根湯本',     desc: '箱根温泉郷の玄関口' },
+  { lat: 35.1056, lng: 139.0772, cat: 'onsen',  name: '熱海温泉',     desc: '海沿いの温泉街' },
+  { lat: 34.7956, lng: 135.2467, cat: 'onsen',  name: '有馬温泉',     desc: '関西屈指の名湯（金泉・銀泉）' },
+
+  { lat: 35.3206, lng: 138.7861, cat: 'family', name: '富士サファリパーク', desc: '富士山と動物。1歳でも車内から楽しめる' },
+  { lat: 35.2922, lng: 138.9056, cat: 'family', name: '御殿場プレミアムアウトレット', desc: '駐車場広い。富士山ビュー' },
+  { lat: 34.6911, lng: 138.2233, cat: 'family', name: '静波サーフスタジアム', desc: '人工波、観覧550円。一貴さんが行きたい場所' },
+
+  { lat: 35.1856, lng: 136.8997, cat: 'city',   name: '名古屋（名古屋城・熱田神宮）', desc: 'ひつまぶし・味噌煮込み' },
+  { lat: 34.6835, lng: 135.1865, cat: 'city',   name: '神戸ハーバーランド', desc: '夜景が美しい港町' },
+  { lat: 35.0094, lng: 135.6669, cat: 'city',   name: '京都・嵐山',   desc: '渡月橋と竹林の小径' },
+  { lat: 34.5953, lng: 133.7700, cat: 'city',   name: '倉敷美観地区', desc: '白壁の町並み。柳の運河' },
+  { lat: 33.9433, lng: 130.9628, cat: 'city',   name: '門司港レトロ', desc: '大正ロマンの港町。九州側の入口' }
+];
+
+const catLabel = {
+  trip:   '旅程の拠点',
+  nature: '自然・絶景',
+  shrine: '神社・歴史',
+  onsen:  '温泉',
+  family: '子供向け・体験',
+  city:   '街・グルメ'
+};
+
+spots.forEach(s => {
+  const isTrip = s.cat === 'trip';
+  const marker = L.marker([s.lat, s.lng], { icon: makeIcon(colors[s.cat], isTrip) }).addTo(map);
+  marker.bindPopup(`
+    <div class="popup-cat" style="color:${colors[s.cat]};">— ${catLabel[s.cat]} —</div>
+    <div class="popup-name">${s.name}</div>
+    <div class="popup-desc">${s.desc}</div>
+  `);
+});
+
+map.on('click', () => map.scrollWheelZoom.enable());
+map.on('mouseout', () => map.scrollWheelZoom.disable());
+
+/* ---------- Packing list ---------- */
+const packData = [
+  { en: 'Documents', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/></svg>`,
+    title: '書類・チケット', items: [
+      '運転免許証', '健康保険証（家族全員）', '母子手帳',
+      'フェリーe乗船券（QR・印刷もしくはスマホ）',
+      'ホテル予約確認画面', 'ふもとっぱら予約番号メモ',
+      '狂犬病ワクチン接種証明書（1年以内・原本必須）',
+      '混合ワクチン接種証明書（念のため）',
+      '現金・クレジットカード'
+  ]},
+  { en: 'Apparel', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l5-5h8l5 5-3 3v9H6v-9z"/><path d="M9 3a3 3 0 0 0 6 0"/></svg>`,
+    title: '衣類（大人）', items: [
+      'Tシャツ・トップス（5日分）', 'ボトムス（2〜3本）',
+      '防寒ジャケット（標高830m対応）', '雨具・レインコート',
+      '寝間着', '下着・靴下（多めに）', '帽子', 'スニーカー＋サンダル',
+      '速乾タオル・速乾Tシャツ（コインランドリー利用想定）',
+      'コンタクト・洗浄液', 'サングラス', 'メイク用品（レイナ）'
+  ]},
+  { en: 'For Kids', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 L9 4 Q9 2 12 2 Q15 2 15 4 L15 6"/><path d="M6 6 L18 6 L17 22 L7 22 Z"/><path d="M10 12 L14 12"/></svg>`,
+    title: '鈴花・大樹（子供）', items: [
+      'オムツ（多めに）', 'おしりふき',
+      '離乳食・ベビーフード（たいちゃん用、お湯で溶かすタイプ）',
+      'ミルク（粉／液体）', '哺乳瓶・乳首替え',
+      '水筒・マグ／ストローマグ',
+      '子供用食器・スプーン（シリコン製・割れにくい）',
+      'お食事エプロン・防水ビブ',
+      'ベビーチェア（テーブル取付式 or 折りたたみハイチェア）',
+      '着替え（多めに）', 'スタイ', 'ベビーソープ', '保湿剤',
+      '体温計', '防寒着・ブランケット',
+      '子供用スリーパー（夜冷え対策）',
+      '抱っこ紐', 'ベビーカー',
+      'おもちゃ・絵本', 'お気に入りタオル',
+      '折りたたみバケツ（シャワー5L補完／かけ湯用）'
+  ]},
+  { en: 'For BISS', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4 Q11 2 13 2 Q15 2 15 4"/><circle cx="13" cy="13" r="6"/><circle cx="11" cy="12" r="0.5" fill="currentColor"/><circle cx="15" cy="12" r="0.5" fill="currentColor"/><path d="M9 7 L7 4 L10 6 M17 7 L19 4 L16 6"/><path d="M13 17 L13 22 M9 19 L9 22 M17 19 L17 22"/></svg>`,
+    title: '犬ビス（BISS）', items: [
+      'ドッグフード（日数分＋予備）', 'おやつ',
+      '常用薬・サプリ',
+      'ビスの水容器・食器',
+      'リード・ハーネス（予備含む）',
+      '小型ケージ（フェリー船内・ホテル用）',
+      'ペットシーツ（多めに）', 'うんち袋', 'ウェットティッシュ',
+      'おもちゃ', '防寒着（夜冷え対策）',
+      '携帯小型扇風機（暑さ対策）'
+  ]},
+  { en: 'Sleep & Bath', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18 L3 8 L21 8 L21 18"/><path d="M3 13 L21 13"/><path d="M3 18 L3 21 M21 18 L21 21"/></svg>`,
+    title: '寝具・お風呂', items: [
+      '寝袋 ×3（既存）',
+      'シーツ（ベッド3つ分・寝袋下敷き用）',
+      '防水シーツ（おねしょ対策、子供用）',
+      'インナーシュラフ or 毛布追加（5月夜10℃対策）',
+      'バスタオル（人数分＋予備）',
+      'お風呂セット（シャンプー・ボディソープ）',
+      '歯磨きセット', 'ヘアブラシ', '髭剃り',
+      'スキンケア用品', 'リップクリーム・ハンドクリーム',
+      '入浴剤（家族風呂用、任意）'
+  ]},
+  { en: 'Kitchen', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8 L19 8 L17 21 L7 21 Z"/><path d="M9 4 L9 8 M15 4 L15 8 M12 4 L12 8"/></svg>`,
+    title: 'キッチン', items: [
+      'やかん（既存・折りたたみ／通常どちらか持参）',
+      'コーヒードリッパー＋ペーパーフィルター＋豆／粉',
+      '保温水筒',
+      'フライパン', '鍋（湯沸かし／調理用）',
+      '飯盒（既存）',
+      '包丁・まな板（既存）', 'ナイフ（既存）',
+      'キッチンばさみ・ピーラー',
+      '缶切り・栓抜き',
+      '調味料・油',
+      'お米（飯盒で炊く用、無洗米が便利）',
+      '食器（割れにくい樹脂製推奨）', '箸・スプーン他カトラリー',
+      'CB缶（多めに、コンロ＋冷蔵庫運用）',
+      '食器用洗剤・スポンジ', 'キッチンペーパー',
+      'ふきん・台ふきん',
+      'ラップ・アルミホイル', 'ジップロック', 'ゴミ袋',
+      'お酒のグラス・コップ'
+  ]},
+  { en: 'Water & Fuel', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 Q6 11 6 15 Q6 20 12 20 Q18 20 18 15 Q18 11 12 3 Z"/></svg>`,
+    title: 'トレーラー水回り・燃料', items: [
+      '給水ホース（3〜5m）★新規購入',
+      '灯油（出発前にFFヒーター満タン）'
+  ]},
+  { en: 'Power', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 L11 14 L9 22 L20 10 L13 10 Z"/></svg>`,
+    title: '電源・電気', items: [
+      'BLUETTI AC200L 本体', 'B300K 拡張バッテリー ×2',
+      'PV200D ソーラーパネル ×1', '接続ケーブル（P090A）',
+      '延長コード', '電源タップ（4口以上）',
+      'USB充電器（複数口）',
+      'スマホ・各種充電ケーブル', 'モバイルバッテリー',
+      'ヘッドライト ×2', 'LEDライト ×2〜3'
+  ]},
+  { en: 'Medical', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M9 7 L9 4 Q9 3 10 3 L14 3 Q15 3 15 4 L15 7"/><path d="M12 11 L12 17 M9 14 L15 14"/></svg>`,
+    title: '救急・常備薬', items: [
+      '絆創膏・ガーゼ', '体温計',
+      '解熱剤（大人・子供別）', '子供用常備薬',
+      '虫除けスプレー', '虫刺され薬', '日焼け止め', '酔い止め',
+      '常備薬（持病・アレルギー）'
+  ]},
+  { en: 'Towing', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M5 6V4 M19 6V4"/></svg>`,
+    title: '移動・牽引装備', items: [
+      '輪留め（ホイールチョーク）×2 ★新規購入',
+      'パンク修理キット（エアコンプレッサーつき）★新規購入',
+      '連結ロック・カプラーロック（盗難防止／既購入分使用）'
+  ]},
+  { en: 'Camp Gear', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21 L9 8 L15 21 Z"/><path d="M9 8 L15 21 L21 21 L15 8 Z"/><path d="M11 21 L13 17 L13 21"/></svg>`,
+    title: 'アウトドア・キャンプ装備', items: [
+      'アウトドアテーブル ×1',
+      '折りたたみチェア ×2',
+      '焚き火台（ピコグリル ×1・既存）',
+      '鉈・斧（薪割りセット・既存）',
+      '皮手袋（既存）',
+      '焚き火用ライター・着火剤',
+      '焚き火シート（地面保護）',
+      '軍手'
+  ]},
+  { en: 'Surfing', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16 Q6 12 10 16 T18 16 T22 14"/><path d="M2 20 Q6 16 10 20 T18 20 T22 18"/><ellipse cx="17" cy="6" rx="5" ry="2" transform="rotate(-30 17 6)"/></svg>`,
+    title: 'サーフィン（静波で体験する場合）', items: [
+      'サーフボード', 'リーシュコード', 'ワックス',
+      'ウェットスーツ（5月は3mmフルスーツ）',
+      'サーフポンチョ（着替え用）',
+      '防水バッグ（濡れた道具用）',
+      'ビーチタオル'
+  ]},
+  { en: 'Work', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M2 20 L22 20"/></svg>`,
+    title: '仕事道具', items: [
+      'PC・iPad・タブレット',
+      '仕事用の充電器類',
+      'ヘッドホン／イヤホン（オンライン会議用、夫婦分）'
+  ]},
+  { en: 'Photo', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7 L9 4 L15 4 L16 7"/><circle cx="12" cy="13" r="4"/></svg>`,
+    title: '撮影機材', items: [
+      '一眼レフ／ミラーレス（星空・富士山・家族写真用）',
+      '三脚（星空長秒露光用）',
+      '予備バッテリー・SDカード',
+      'ドローン（飛行可能エリア事前確認のうえ）'
+  ]},
+  { en: 'Play & Relax', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="1.5"/><circle cx="12" cy="11.5" r="3.5"/><circle cx="12" cy="11.5" r="1.2" fill="currentColor"/><path d="M5 8 L5 9 M19 8 L19 9"/><path d="M9 21 L15 21"/></svg>`,
+    title: '遊び・くつろぎ', items: [
+      'プロジェクター（外で映画／トレーラー内で）',
+      'ポータブルスピーカー（プロジェクター音声＋BGM、BLUETTI充電可）',
+      'スクリーン代わりの白いシーツ（タープ内側に張れば即席シアター）',
+      '子供向け：ボール・砂遊びセット・シャボン玉'
+  ]},
+  { en: 'Laundry', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="9" cy="6" r="0.6" fill="currentColor"/><circle cx="12" cy="6" r="0.6" fill="currentColor"/></svg>`,
+    title: '洗濯・清掃', items: [
+      '携帯用洗濯ジップロック洗剤',
+      '洗濯ネット（小物・下着用）',
+      'ランドリーバッグ（汚れ物入れ）',
+      'ハンガー', '洗濯バサミ', 'ロープ（物干し兼）',
+      'トイレットペーパー', '箱ティッシュ',
+      'ウェットティッシュ', '雑巾'
+  ]},
+  { en: 'Extras', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 7 L12 13 L16 15"/></svg>`,
+    title: 'その他・あると嬉しい', items: [
+      '折りたたみ傘',
+      'スーパーのビニール袋（大きめ）',
+      'ガムテープ・養生テープ（応急修理）',
+      '結束バンド（積荷固定）',
+      '携帯トイレ（高速渋滞・緊急用）'
+  ]}
+];
+
+const STORAGE_KEY = 'akiyoshi_roadtrip_packing_v4';
+const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+const grid = document.getElementById('packGrid');
+packData.forEach((cat, ci) => {
+  const card = document.createElement('div');
+  card.className = 'pack-cat';
+  card.innerHTML = `<h3><span class="cat-icon">${cat.icon}</span>${cat.title}<span class="en">${cat.en}</span></h3>`;
+  const ul = document.createElement('ul');
+  ul.className = 'pack-list';
+  cat.items.forEach((item, ii) => {
+    const id = `pack-${ci}-${ii}`;
+    const checked = !!saved[id];
+    const li = document.createElement('li');
+    if (checked) li.classList.add('checked');
+    li.innerHTML = `
+      <input type="checkbox" id="${id}" ${checked ? 'checked' : ''}>
+      <label for="${id}">${item}</label>
+    `;
+    li.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'INPUT') {
+        const cb = li.querySelector('input');
+        cb.checked = !cb.checked;
+      }
+      const cb = li.querySelector('input');
+      li.classList.toggle('checked', cb.checked);
+      saved[id] = cb.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      updateProgress();
+    });
+    ul.appendChild(li);
+  });
+  card.appendChild(ul);
+  grid.appendChild(card);
+});
+
+function updateProgress() {
+  const all = document.querySelectorAll('.pack-list input[type="checkbox"]');
+  const done = document.querySelectorAll('.pack-list input[type="checkbox"]:checked').length;
+  const pct = all.length ? Math.round(done / all.length * 100) : 0;
+  document.getElementById('packProgressBar').style.width = pct + '%';
+  document.getElementById('packProgressText').textContent = `${done} / ${all.length}  (${pct}%)`;
+}
+updateProgress();
+
+document.getElementById('packReset').addEventListener('click', () => {
+  if (!confirm('すべてのチェックをリセットします。よろしいですか？')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('.pack-list li').forEach(li => {
+    li.classList.remove('checked');
+    li.querySelector('input').checked = false;
+  });
+  updateProgress();
+});
+</script>
+</body>
+</html>
