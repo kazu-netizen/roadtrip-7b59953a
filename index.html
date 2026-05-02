@@ -23,6 +23,9 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
+<!-- 持ち物リストを夫婦でリアルタイム共有するための部品 -->
+<script src="https://cdn.jsdelivr.net/npm/gun@0.2020.1240/gun.min.js"></script>
+
 <style>
   :root {
     --ink: #1f2a3a;
@@ -1215,6 +1218,124 @@
     color: var(--ink-fade);
     opacity: 0.55;
   }
+  .pack-item-del {
+    background: transparent;
+    border: none;
+    color: var(--ink-fade);
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 4px 8px;
+    margin-top: 2px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    opacity: 0.35;
+    transition: all 0.18s;
+    font-family: inherit;
+  }
+  .pack-list li:hover .pack-item-del {
+    opacity: 0.7;
+  }
+  .pack-item-del:hover {
+    color: var(--sunset);
+    opacity: 1 !important;
+    background: rgba(217, 114, 67, 0.08);
+  }
+  .pack-add-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 10px 0 4px !important;
+    margin-top: 6px;
+    border-top: 1px dashed var(--line);
+    cursor: default !important;
+  }
+  .pack-add-input {
+    flex: 1;
+    background: var(--paper-warm);
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 0.88rem;
+    font-family: inherit;
+    color: var(--ink);
+    outline: none;
+    transition: all 0.18s;
+  }
+  .pack-add-input:focus {
+    background: var(--card);
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .pack-add-input::placeholder {
+    color: var(--ink-fade);
+    font-style: italic;
+    opacity: 0.7;
+  }
+  .pack-add-btn {
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.18s;
+    letter-spacing: 0.04em;
+  }
+  .pack-add-btn:hover {
+    background: var(--sunset);
+    box-shadow: 0 2px 8px rgba(217, 114, 67, 0.3);
+  }
+  .pack-add-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .pack-sync-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto 24px;
+    padding: 9px 18px;
+    max-width: 520px;
+    border-radius: 999px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    transition: all 0.3s;
+  }
+  .pack-sync-banner.online {
+    background: rgba(76, 130, 86, 0.08);
+    color: var(--forest, #4c8256);
+    border: 1px solid rgba(76, 130, 86, 0.25);
+  }
+  .pack-sync-banner.offline {
+    background: rgba(120, 120, 120, 0.06);
+    color: var(--ink-fade);
+    border: 1px solid var(--line);
+  }
+  .pack-sync-banner .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pack-sync-banner.online .dot {
+    background: #4c8256;
+    box-shadow: 0 0 6px rgba(76, 130, 86, 0.6);
+    animation: pack-pulse 2s ease-in-out infinite;
+  }
+  .pack-sync-banner.offline .dot {
+    background: var(--ink-fade);
+  }
+  @keyframes pack-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
   .pack-list li.checked label::after {
     content: " ✓ 完了";
     font-family: 'Cormorant Garamond', serif;
@@ -2097,9 +2218,14 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>
   </div>
   <p class="section-lead">
-    タップすると<em>「✓ 完了」</em>マークがつきます。<br>
-    このブラウザに記録されるので、開き直してもチェックは残ります。
+    タップで<em>「✓ 完了」</em>、<em>×</em>で削除、各カテゴリ末尾の入力欄から<em>追加</em>できます。<br>
+    夫婦のスマホで自動的に同期されるので、片方の編集がもう片方にもすぐ届きます。
   </p>
+
+  <div class="pack-sync-banner offline" id="packSyncBanner">
+    <span class="dot"></span>
+    <span id="packSyncText">接続中…</span>
+  </div>
 
   <div class="packing-illust">
     <svg viewBox="0 0 220 90" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2543,60 +2669,315 @@ const packData = [
   ]}
 ];
 
-const STORAGE_KEY = 'akiyoshi_roadtrip_packing_v4';
-const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+// ===================================================================
+// 持ち物リスト：夫婦リアルタイム共有（GUN.js分散KV）
+//   - items[id] = { catIdx, text, checked, deleted, ts }
+//   - 初期160項目は seed-{catIdx}-{itemIdx} 固定IDで端末ローカルに展開
+//   - 編集(チェック・削除・テキスト)があれば差分のみGUNに保存
+//   - ユーザー追加項目は user-{ts}-{rand} ID でGUNに新規保存
+//   - tsで競合解決（後勝ち）。削除はtombstone(deleted=true)で表現
+// ===================================================================
 
-const grid = document.getElementById('packGrid');
-packData.forEach((cat, ci) => {
-  const card = document.createElement('div');
-  card.className = 'pack-cat';
-  card.innerHTML = `<h3><span class="cat-icon">${cat.icon}</span>${cat.title}<span class="en">${cat.en}</span></h3>`;
-  const ul = document.createElement('ul');
-  ul.className = 'pack-list';
-  cat.items.forEach((item, ii) => {
-    const id = `pack-${ci}-${ii}`;
-    const checked = !!saved[id];
-    const li = document.createElement('li');
-    if (checked) li.classList.add('checked');
-    li.innerHTML = `
-      <input type="checkbox" id="${id}" ${checked ? 'checked' : ''}>
-      <label for="${id}">${item}</label>
-    `;
-    li.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'INPUT') {
-        const cb = li.querySelector('input');
-        cb.checked = !cb.checked;
+const PACK_FAMILY_NS = 'akiyoshi-trailer-2026-packing-v1';
+const PACK_CACHE_KEY = 'akiyoshi_trailer_packing_v5';
+const PACK_LEGACY_KEY = 'akiyoshi_roadtrip_packing_v4';
+
+const escapeHtml = (s) => String(s)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&#39;');
+
+let packItems = {};       // id -> { catIdx, text, checked, deleted, ts }
+let packGunBoard = null;
+let packGunOnline = false;
+let packLastSyncAt = 0;
+
+function packSeedFromDefaults() {
+  packData.forEach((cat, ci) => {
+    cat.items.forEach((text, ii) => {
+      const id = `seed-${ci}-${ii}`;
+      if (!packItems[id]) {
+        packItems[id] = { catIdx: ci, text, checked: false, deleted: false, ts: 0 };
       }
-      const cb = li.querySelector('input');
-      li.classList.toggle('checked', cb.checked);
-      saved[id] = cb.checked;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-      updateProgress();
     });
-    ul.appendChild(li);
   });
-  card.appendChild(ul);
-  grid.appendChild(card);
-});
-
-function updateProgress() {
-  const all = document.querySelectorAll('.pack-list input[type="checkbox"]');
-  const done = document.querySelectorAll('.pack-list input[type="checkbox"]:checked').length;
-  const pct = all.length ? Math.round(done / all.length * 100) : 0;
-  document.getElementById('packProgressBar').style.width = pct + '%';
-  document.getElementById('packProgressText').textContent = `${done} / ${all.length}  (${pct}%)`;
 }
-updateProgress();
+
+function packLoadCache() {
+  try {
+    const raw = localStorage.getItem(PACK_CACHE_KEY);
+    if (raw) {
+      const cached = JSON.parse(raw);
+      if (cached && typeof cached === 'object') {
+        for (const [id, v] of Object.entries(cached)) {
+          if (!v || typeof v !== 'object') continue;
+          packItems[id] = {
+            catIdx: Number(v.catIdx) || 0,
+            text: typeof v.text === 'string' ? v.text : '',
+            checked: !!v.checked,
+            deleted: !!v.deleted,
+            ts: Number(v.ts) || 0,
+          };
+        }
+        return;
+      }
+    }
+    // 旧バージョン(v4)のチェック状態を引き継ぎ
+    const legacy = localStorage.getItem(PACK_LEGACY_KEY);
+    if (legacy) {
+      const obj = JSON.parse(legacy);
+      const ts = Date.now() - 1; // ローカル既存値として扱う（新編集に上書きされやすく）
+      for (const [oldId, checked] of Object.entries(obj || {})) {
+        const m = /^pack-(\d+)-(\d+)$/.exec(oldId);
+        if (!m || !checked) continue;
+        const id = `seed-${m[1]}-${m[2]}`;
+        if (packItems[id]) {
+          packItems[id].checked = true;
+          packItems[id].ts = ts;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('[pack] cache load failed', e);
+  }
+}
+
+function packSaveCache() {
+  try {
+    localStorage.setItem(PACK_CACHE_KEY, JSON.stringify(packItems));
+  } catch (e) {
+    console.warn('[pack] cache save failed', e);
+  }
+}
+
+function packPushItem(id) {
+  if (!packGunBoard) return;
+  const it = packItems[id];
+  if (!it) return;
+  try {
+    packGunBoard.get(id).put({
+      catIdx: it.catIdx,
+      text: it.text,
+      checked: !!it.checked,
+      deleted: !!it.deleted,
+      ts: it.ts,
+    }, (ack) => {
+      // ピア（他端末）から到達確認が返ったときだけ「同期中」扱いにする
+      if (ack && !ack.err) {
+        packGunOnline = true;
+        packLastSyncAt = Date.now();
+        packUpdateSyncBanner();
+      }
+    });
+  } catch (e) {
+    console.warn('[pack] push failed', e);
+  }
+}
+
+function packInitGun() {
+  if (typeof window.GUN !== 'function') {
+    console.warn('[pack] GUN library not loaded');
+    return;
+  }
+  let gun;
+  try {
+    gun = window.GUN({
+      peers: [
+        'https://gun-manhattan.herokuapp.com/gun',
+        'https://peer.wallie.io/gun',
+        'https://relay.peer.ooo/gun',
+        'https://gundb-relay-mlccl.ondigitalocean.app/gun',
+      ],
+    });
+    packGunBoard = gun.get(PACK_FAMILY_NS).get('items-v1');
+  } catch (e) {
+    console.warn('[pack] GUN init failed', e);
+    return;
+  }
+
+  packGunBoard.map().on((data, key) => {
+    if (!data || !key) return;
+    try {
+      const incoming = {
+        catIdx: Number(data.catIdx),
+        text: typeof data.text === 'string' ? data.text : '',
+        checked: !!data.checked,
+        deleted: !!data.deleted,
+        ts: Number(data.ts) || 0,
+      };
+      if (!Number.isFinite(incoming.catIdx) || incoming.catIdx < 0 || incoming.catIdx >= packData.length) return;
+      const cur = packItems[key];
+      // 後勝ち: 受信ts >= 現在tsなら採用（同値も採用してデフォルト値を上書き）
+      if (!cur || incoming.ts >= (cur.ts || 0)) {
+        packItems[key] = incoming;
+        packGunOnline = true;
+        packLastSyncAt = Date.now();
+        packSaveCache();
+        packRender();
+        packUpdateSyncBanner();
+      }
+    } catch (e) {
+      console.warn('[pack] map.on error', e);
+    }
+  });
+
+  // 自分のローカル変更（既にtsを持つもの）を相手にも知らせる。
+  // 同期完了を待ってから流すと、相手の最新を上書きしにくい。
+  setTimeout(() => {
+    for (const [id, it] of Object.entries(packItems)) {
+      if ((it.ts || 0) > 0) packPushItem(id);
+    }
+  }, 1500);
+}
+
+function packUpdateSyncBanner() {
+  const banner = document.getElementById('packSyncBanner');
+  const text = document.getElementById('packSyncText');
+  if (!banner || !text) return;
+  const fresh = packGunOnline && (Date.now() - packLastSyncAt < 60_000);
+  if (fresh) {
+    banner.className = 'pack-sync-banner online';
+    text.textContent = '夫婦で同期中 — 編集はリアルタイムで反映されます';
+  } else if (packGunOnline) {
+    banner.className = 'pack-sync-banner online';
+    text.textContent = '夫婦で同期中';
+  } else {
+    banner.className = 'pack-sync-banner offline';
+    text.textContent = 'オフライン中（この端末のみ保存）';
+  }
+}
+
+function packRender() {
+  const grid = document.getElementById('packGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  packData.forEach((cat, ci) => {
+    const card = document.createElement('div');
+    card.className = 'pack-cat';
+    card.innerHTML = `<h3><span class="cat-icon">${cat.icon}</span>${cat.title}<span class="en">${cat.en}</span></h3>`;
+    const ul = document.createElement('ul');
+    ul.className = 'pack-list';
+
+    // このカテゴリの項目を抽出（削除済み除外）
+    const entries = Object.entries(packItems)
+      .filter(([, it]) => it.catIdx === ci && !it.deleted)
+      .sort(([a], [b]) => {
+        const aSeed = a.startsWith('seed-');
+        const bSeed = b.startsWith('seed-');
+        if (aSeed && !bSeed) return -1;
+        if (!aSeed && bSeed) return 1;
+        if (aSeed && bSeed) {
+          const ai = Number(a.split('-')[2]);
+          const bi = Number(b.split('-')[2]);
+          return ai - bi;
+        }
+        // ユーザー追加分はts昇順（先に追加した方が上）
+        return (packItems[a].ts || 0) - (packItems[b].ts || 0);
+      });
+
+    entries.forEach(([id, it]) => {
+      const li = document.createElement('li');
+      if (it.checked) li.classList.add('checked');
+      li.innerHTML = `
+        <input type="checkbox" id="${escapeHtml(id)}" ${it.checked ? 'checked' : ''}>
+        <label for="${escapeHtml(id)}">${escapeHtml(it.text)}</label>
+        <button class="pack-item-del" type="button" aria-label="この項目を削除" title="削除">×</button>
+      `;
+      // チェック切り替え
+      li.addEventListener('click', (e) => {
+        if (e.target.classList && e.target.classList.contains('pack-item-del')) return;
+        if (e.target.tagName !== 'INPUT') {
+          const cb = li.querySelector('input');
+          cb.checked = !cb.checked;
+        }
+        const cb = li.querySelector('input');
+        li.classList.toggle('checked', cb.checked);
+        packItems[id] = { ...packItems[id], checked: cb.checked, ts: Date.now() };
+        packSaveCache();
+        packPushItem(id);
+        packUpdateProgress();
+      });
+      // 削除
+      li.querySelector('.pack-item-del').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!confirm(`「${it.text}」を削除しますか？\n（夫婦どちらの画面からも消えます）`)) return;
+        packItems[id] = { ...packItems[id], deleted: true, ts: Date.now() };
+        packSaveCache();
+        packPushItem(id);
+        packRender();
+      });
+      ul.appendChild(li);
+    });
+
+    // 追加入力欄
+    const addLi = document.createElement('li');
+    addLi.className = 'pack-add-row';
+    addLi.innerHTML = `
+      <input type="text" class="pack-add-input" placeholder="＋ 持ち物を追加…" maxlength="60">
+      <button class="pack-add-btn" type="button">追加</button>
+    `;
+    const input = addLi.querySelector('.pack-add-input');
+    const btn = addLi.querySelector('.pack-add-btn');
+    const submit = () => {
+      const text = input.value.trim();
+      if (!text) return;
+      const id = `user-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      packItems[id] = { catIdx: ci, text, checked: false, deleted: false, ts: Date.now() };
+      packSaveCache();
+      packPushItem(id);
+      input.value = '';
+      packRender();
+      // 追加直後は同じカテゴリの入力欄にフォーカスを戻す
+      const focusTarget = grid.querySelectorAll('.pack-cat')[ci]?.querySelector('.pack-add-input');
+      if (focusTarget) focusTarget.focus();
+    };
+    btn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submit(); }
+    });
+    ul.appendChild(addLi);
+
+    card.appendChild(ul);
+    grid.appendChild(card);
+  });
+
+  packUpdateProgress();
+}
+
+function packUpdateProgress() {
+  const visible = Object.values(packItems).filter((it) => !it.deleted);
+  const total = visible.length;
+  const done = visible.filter((it) => it.checked).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const bar = document.getElementById('packProgressBar');
+  const txt = document.getElementById('packProgressText');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = `${done} / ${total}  (${pct}%)`;
+}
 
 document.getElementById('packReset').addEventListener('click', () => {
-  if (!confirm('すべてのチェックをリセットします。よろしいですか？')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  document.querySelectorAll('.pack-list li').forEach(li => {
-    li.classList.remove('checked');
-    li.querySelector('input').checked = false;
-  });
-  updateProgress();
+  if (!confirm('すべてのチェックをリセットします。\n（追加した項目は残ります／夫婦どちらの画面でもチェックが外れます）\nよろしいですか？')) return;
+  const ts = Date.now();
+  for (const [id, it] of Object.entries(packItems)) {
+    if (it.deleted) continue;
+    if (!it.checked) continue;
+    packItems[id] = { ...it, checked: false, ts };
+    packPushItem(id);
+  }
+  packSaveCache();
+  packRender();
 });
+
+// 起動シーケンス
+packSeedFromDefaults();
+packLoadCache();
+packRender();
+packUpdateSyncBanner();
+packInitGun();
+setInterval(packUpdateSyncBanner, 4000);
 </script>
 </body>
 </html>
