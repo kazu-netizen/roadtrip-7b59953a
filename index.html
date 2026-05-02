@@ -23,8 +23,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
-<!-- 持ち物リストを夫婦でリアルタイム共有するための部品 -->
-<script src="https://cdn.jsdelivr.net/npm/gun@0.2020.1240/gun.min.js"></script>
 
 <style>
   :root {
@@ -2670,15 +2668,16 @@ const packData = [
 ];
 
 // ===================================================================
-// 持ち物リスト：夫婦リアルタイム共有（GUN.js分散KV）
+// 持ち物リスト：夫婦リアルタイム共有（Cloudflare Workers + KV）
 //   - items[id] = { catIdx, text, checked, deleted, ts }
 //   - 初期160項目は seed-{catIdx}-{itemIdx} 固定IDで端末ローカルに展開
-//   - 編集(チェック・削除・テキスト)があれば差分のみGUNに保存
-//   - ユーザー追加項目は user-{ts}-{rand} ID でGUNに新規保存
+//   - 編集(チェック・削除・テキスト)があれば即APIにPOST
+//   - 3秒ごとにGETポーリングで他端末の変更を取得
 //   - tsで競合解決（後勝ち）。削除はtombstone(deleted=true)で表現
 // ===================================================================
 
-const PACK_FAMILY_NS = 'akiyoshi-trailer-2026-packing-v1';
+const PACK_API = 'https://trailer-packing.kazu-4e4.workers.dev/items';
+const PACK_POLL_MS = 3000;
 const PACK_CACHE_KEY = 'akiyoshi_trailer_packing_v5';
 const PACK_LEGACY_KEY = 'akiyoshi_roadtrip_packing_v4';
 
@@ -2690,9 +2689,12 @@ const escapeHtml = (s) => String(s)
   .replace(/'/g, '&#39;');
 
 let packItems = {};       // id -> { catIdx, text, checked, deleted, ts }
-let packGunBoard = null;
-let packGunOnline = false;
+let packCloudOnline = false;
 let packLastSyncAt = 0;
+let packLastModified = 0;
+let packPendingPushes = []; // オフライン時の未送信キュー
+let packPollTimer = null;
+let packFlushTimer = null;
 
 function packSeedFromDefaults() {
   packData.forEach((cat, ci) => {
@@ -2752,100 +2754,132 @@ function packSaveCache() {
   }
 }
 
-function packPushItem(id) {
-  if (!packGunBoard) return;
+function packQueuePush(id) {
   const it = packItems[id];
   if (!it) return;
+  // 同じIDの未送信があれば最新で置き換え（古いPOSTを送らない）
+  packPendingPushes = packPendingPushes.filter((u) => u.id !== id);
+  packPendingPushes.push({
+    id,
+    catIdx: it.catIdx,
+    text: it.text,
+    checked: !!it.checked,
+    deleted: !!it.deleted,
+    ts: it.ts,
+  });
+  // 即時送信を試みる（連打時は packFlushTimer でデバウンス）
+  if (packFlushTimer) clearTimeout(packFlushTimer);
+  packFlushTimer = setTimeout(packFlushPushes, 200);
+}
+
+async function packFlushPushes() {
+  if (!packPendingPushes.length) return;
+  const batch = packPendingPushes.splice(0, packPendingPushes.length);
   try {
-    packGunBoard.get(id).put({
-      catIdx: it.catIdx,
-      text: it.text,
-      checked: !!it.checked,
-      deleted: !!it.deleted,
-      ts: it.ts,
-    }, (ack) => {
-      // ピア（他端末）から到達確認が返ったときだけ「同期中」扱いにする
-      if (ack && !ack.err) {
-        packGunOnline = true;
-        packLastSyncAt = Date.now();
-        packUpdateSyncBanner();
-      }
+    const res = await fetch(PACK_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ updates: batch }),
     });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data && Number.isFinite(data.lastModified)) {
+      packLastModified = Math.max(packLastModified, data.lastModified);
+    }
+    packCloudOnline = true;
+    packLastSyncAt = Date.now();
   } catch (e) {
     console.warn('[pack] push failed', e);
+    // 失敗したら未送信キューに戻して次回リトライ
+    packPendingPushes.unshift(...batch);
+    packCloudOnline = false;
   }
+  packUpdateSyncBanner();
 }
 
-function packInitGun() {
-  if (typeof window.GUN !== 'function') {
-    console.warn('[pack] GUN library not loaded');
-    return;
-  }
-  let gun;
+async function packFetchUpdates() {
   try {
-    gun = window.GUN({
-      peers: [
-        'https://gun-manhattan.herokuapp.com/gun',
-        'https://peer.wallie.io/gun',
-        'https://relay.peer.ooo/gun',
-        'https://gundb-relay-mlccl.ondigitalocean.app/gun',
-      ],
-    });
-    packGunBoard = gun.get(PACK_FAMILY_NS).get('items-v1');
-  } catch (e) {
-    console.warn('[pack] GUN init failed', e);
-    return;
-  }
-
-  packGunBoard.map().on((data, key) => {
-    if (!data || !key) return;
-    try {
-      const incoming = {
-        catIdx: Number(data.catIdx),
-        text: typeof data.text === 'string' ? data.text : '',
-        checked: !!data.checked,
-        deleted: !!data.deleted,
-        ts: Number(data.ts) || 0,
-      };
-      if (!Number.isFinite(incoming.catIdx) || incoming.catIdx < 0 || incoming.catIdx >= packData.length) return;
-      const cur = packItems[key];
-      // 後勝ち: 受信ts >= 現在tsなら採用（同値も採用してデフォルト値を上書き）
-      if (!cur || incoming.ts >= (cur.ts || 0)) {
-        packItems[key] = incoming;
-        packGunOnline = true;
-        packLastSyncAt = Date.now();
+    const url = packLastModified > 0
+      ? `${PACK_API}?since=${packLastModified}`
+      : PACK_API;
+    const res = await fetch(url, { method: 'GET', cache: 'no-store' });
+    if (res.status === 304) {
+      packCloudOnline = true;
+      packLastSyncAt = Date.now();
+      packUpdateSyncBanner();
+      return;
+    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data && data.items && typeof data.items === 'object') {
+      let dirty = false;
+      for (const [id, raw] of Object.entries(data.items)) {
+        if (!raw || typeof raw !== 'object') continue;
+        const incoming = {
+          catIdx: Number(raw.catIdx),
+          text: typeof raw.text === 'string' ? raw.text : '',
+          checked: !!raw.checked,
+          deleted: !!raw.deleted,
+          ts: Number(raw.ts) || 0,
+        };
+        if (!Number.isFinite(incoming.catIdx) || incoming.catIdx < 0 || incoming.catIdx >= packData.length) continue;
+        const cur = packItems[id];
+        if (!cur || incoming.ts >= (cur.ts || 0)) {
+          // 自分のローカル変更がより新しい場合は上書きしない
+          if (cur && (cur.ts || 0) > incoming.ts) continue;
+          packItems[id] = incoming;
+          dirty = true;
+        }
+      }
+      if (Number.isFinite(data.lastModified)) {
+        packLastModified = Math.max(packLastModified, data.lastModified);
+      }
+      packCloudOnline = true;
+      packLastSyncAt = Date.now();
+      if (dirty) {
         packSaveCache();
         packRender();
-        packUpdateSyncBanner();
       }
-    } catch (e) {
-      console.warn('[pack] map.on error', e);
+    }
+  } catch (e) {
+    console.warn('[pack] fetch failed', e);
+    packCloudOnline = false;
+  }
+  packUpdateSyncBanner();
+}
+
+function packStartSync() {
+  // 初回フェッチ → ローカル変更を送信 → 定期ポーリング開始
+  packFetchUpdates().then(() => {
+    // ローカルにts>0の変更があればクラウドに送る
+    for (const [id, it] of Object.entries(packItems)) {
+      if ((it.ts || 0) > 0) packQueuePush(id);
     }
   });
-
-  // 自分のローカル変更（既にtsを持つもの）を相手にも知らせる。
-  // 同期完了を待ってから流すと、相手の最新を上書きしにくい。
-  setTimeout(() => {
-    for (const [id, it] of Object.entries(packItems)) {
-      if ((it.ts || 0) > 0) packPushItem(id);
-    }
-  }, 1500);
+  if (packPollTimer) clearInterval(packPollTimer);
+  packPollTimer = setInterval(() => {
+    packFetchUpdates();
+    if (packPendingPushes.length) packFlushPushes();
+  }, PACK_POLL_MS);
 }
+
+// 互換: 既存呼び出し箇所からの呼び出し名を維持
+function packPushItem(id) { packQueuePush(id); }
 
 function packUpdateSyncBanner() {
   const banner = document.getElementById('packSyncBanner');
   const text = document.getElementById('packSyncText');
   if (!banner || !text) return;
-  const fresh = packGunOnline && (Date.now() - packLastSyncAt < 60_000);
+  const fresh = packCloudOnline && (Date.now() - packLastSyncAt < 60_000);
   if (fresh) {
     banner.className = 'pack-sync-banner online';
-    text.textContent = '夫婦で同期中 — 編集はリアルタイムで反映されます';
-  } else if (packGunOnline) {
+    text.textContent = '夫婦で同期中 — 編集は数秒で反映されます';
+  } else if (packCloudOnline) {
     banner.className = 'pack-sync-banner online';
     text.textContent = '夫婦で同期中';
   } else {
     banner.className = 'pack-sync-banner offline';
-    text.textContent = 'オフライン中（この端末のみ保存）';
+    text.textContent = 'オフライン中（接続できたら自動同期）';
   }
 }
 
@@ -2976,8 +3010,13 @@ packSeedFromDefaults();
 packLoadCache();
 packRender();
 packUpdateSyncBanner();
-packInitGun();
+packStartSync();
 setInterval(packUpdateSyncBanner, 4000);
+
+// ページ復帰時にすぐ最新を取りに行く（バックグラウンドから戻ってきた時）
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') packFetchUpdates();
+});
 </script>
 </body>
 </html>
