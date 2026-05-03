@@ -1204,18 +1204,66 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .pack-list li label {
+  .pack-list li .pack-item-text {
+    flex: 1;
+    min-width: 0;
     font-size: 0.93rem;
+    font-family: inherit;
     color: var(--ink);
     line-height: 1.6;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin: 0 -6px;
     cursor: pointer;
-    flex: 1;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background 0.15s, border-color 0.15s;
   }
-  .pack-list li.checked label {
+  .pack-list li .pack-item-text:not([readonly]) {
+    cursor: text;
+    user-select: text;
+    -webkit-user-select: text;
+    -webkit-touch-callout: default;
+  }
+  .pack-list li .pack-item-text:not([readonly]):focus {
+    outline: none;
+    background: var(--paper-warm);
+    border-color: var(--gold);
+  }
+  .pack-list li.checked .pack-item-text {
     text-decoration: line-through;
     color: var(--ink-fade);
     opacity: 0.55;
   }
+  .pack-item-edit {
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    cursor: pointer;
+    padding: 4px 6px;
+    margin-top: 2px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    opacity: 0.55;
+    transition: all 0.18s;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: rgba(184, 142, 75, 0.2);
+  }
+  .pack-list li:hover .pack-item-edit {
+    opacity: 0.9;
+  }
+  .pack-item-edit:hover, .pack-item-edit:focus-visible {
+    color: var(--sunset);
+    opacity: 1 !important;
+    background: rgba(184, 142, 75, 0.12);
+    outline: none;
+  }
+  .pack-item-edit svg { display: block; pointer-events: none; }
   .pack-item-del {
     background: transparent;
     border: none;
@@ -2216,7 +2264,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg>
   </div>
   <p class="section-lead">
-    タップで<em>「✓ 完了」</em>、<em>×</em>で削除、各カテゴリ末尾の入力欄から<em>追加</em>できます。<br>
+    タップで<em>「✓ 完了」</em>、<em>✎</em>で文言修正、<em>×</em>で削除、各カテゴリ末尾の入力欄から<em>追加</em>できます。<br>
     夫婦のスマホで自動的に同期されるので、片方の編集がもう片方にもすぐ届きます。
   </p>
 
@@ -2695,6 +2743,7 @@ let packLastModified = 0;
 let packPendingPushes = []; // オフライン時の未送信キュー
 let packPollTimer = null;
 let packFlushTimer = null;
+let packRenderPending = false; // 編集中に再描画要求が来たら立てる
 
 function packSeedFromDefaults() {
   packData.forEach((cat, ci) => {
@@ -2886,6 +2935,13 @@ function packUpdateSyncBanner() {
 function packRender() {
   const grid = document.getElementById('packGrid');
   if (!grid) return;
+  // 編集中なら再描画を保留（フォーカスと未保存テキストを失わないため）
+  const active = document.activeElement;
+  if (active && active.classList && active.classList.contains('pack-item-text')) {
+    packRenderPending = true;
+    return;
+  }
+  packRenderPending = false;
   grid.innerHTML = '';
 
   packData.forEach((cat, ci) => {
@@ -2916,26 +2972,77 @@ function packRender() {
       const li = document.createElement('li');
       if (it.checked) li.classList.add('checked');
       li.innerHTML = `
-        <input type="checkbox" id="${escapeHtml(id)}" ${it.checked ? 'checked' : ''}>
-        <label for="${escapeHtml(id)}">${escapeHtml(it.text)}</label>
+        <input type="checkbox" class="pack-item-check" id="${escapeHtml(id)}" ${it.checked ? 'checked' : ''}>
+        <input type="text" class="pack-item-text" value="${escapeHtml(it.text)}" maxlength="60" readonly aria-label="持ち物の名前">
+        <button class="pack-item-edit" type="button" aria-label="この項目を編集" title="編集">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </button>
         <button class="pack-item-del" type="button" aria-label="この項目を削除" title="削除">×</button>
       `;
-      // チェック切り替え
+      const cb = li.querySelector('.pack-item-check');
+      const textInput = li.querySelector('.pack-item-text');
+      const editBtn = li.querySelector('.pack-item-edit');
+      const delBtn = li.querySelector('.pack-item-del');
+
+      // チェック切替：LI本体・チェックボックス本体のクリックのみ反応（他要素は無視）
       li.addEventListener('click', (e) => {
-        if (e.target.classList && e.target.classList.contains('pack-item-del')) return;
-        if (e.target.tagName !== 'INPUT') {
-          const cb = li.querySelector('input');
-          cb.checked = !cb.checked;
-        }
-        const cb = li.querySelector('input');
+        if (e.target !== li && e.target !== cb) return;
+        if (e.target !== cb) cb.checked = !cb.checked;
         li.classList.toggle('checked', cb.checked);
         packItems[id] = { ...packItems[id], checked: cb.checked, ts: Date.now() };
         packSaveCache();
         packPushItem(id);
         packUpdateProgress();
       });
+
+      // 鉛筆ボタンで編集モードに入る（モバイルでも確実に動く経路）
+      let savedText = it.text;
+      const enterEditMode = () => {
+        textInput.removeAttribute('readonly');
+        textInput.focus();
+        try { textInput.setSelectionRange(0, textInput.value.length); } catch (_) {}
+      };
+      editBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        enterEditMode();
+      });
+      // 直接タップでも編集できる端末向け（iOS等で効かなくても鉛筆ボタンで救える）
+      textInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (textInput.hasAttribute('readonly')) enterEditMode();
+      });
+
+      // テキスト編集：Enterで保存、Escapeで取消、空はキャンセル
+      textInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          textInput.blur();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          textInput.value = savedText;
+          textInput.blur();
+        }
+      });
+      textInput.addEventListener('blur', () => {
+        const newText = textInput.value.trim();
+        if (!newText) {
+          textInput.value = savedText;
+        } else if (newText !== savedText) {
+          savedText = newText;
+          textInput.value = newText;
+          packItems[id] = { ...packItems[id], text: newText, ts: Date.now() };
+          packSaveCache();
+          packPushItem(id);
+        }
+        textInput.setAttribute('readonly', '');
+        if (packRenderPending) packRender();
+      });
+
       // 削除
-      li.querySelector('.pack-item-del').addEventListener('click', (e) => {
+      delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (!confirm(`「${it.text}」を削除しますか？\n（夫婦どちらの画面からも消えます）`)) return;
         packItems[id] = { ...packItems[id], deleted: true, ts: Date.now() };
